@@ -196,6 +196,48 @@ html, body {
   box-shadow: 0 0 20px rgba(255, 30, 39, 0.25);
 }
 
+/* Small Circular Low-Opacity GitHub Repository Button */
+.contextual-repo-circle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background: rgba(12, 13, 18, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-white);
+  opacity: 0.32;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contextual-repo-circle-btn:hover,
+.contextual-repo-circle-btn:focus-visible {
+  opacity: 0.95;
+  transform: scale(1.08);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.22);
+}
+
+.contextual-repo-circle-btn:active {
+  transform: scale(0.96);
+  opacity: 1;
+  border-color: var(--accent-red);
+  box-shadow: 0 0 16px rgba(255, 30, 39, 0.4);
+}
+
 /* Contextual button hidden state: glides in smoothly when relevant */
 .contextual-control-btn.spec-btn {
   opacity: 0;
