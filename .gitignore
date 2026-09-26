@@ -21,7 +21,9 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+# Raw 3D Source Files (>100MB, not used in web runtime)
+models/
+public/models/corvette_c7_opt.glb
 
 
 
