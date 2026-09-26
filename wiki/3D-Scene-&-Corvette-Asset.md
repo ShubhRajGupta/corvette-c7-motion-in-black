@@ -56,6 +56,13 @@ Users can dynamically toggle between 5 curated factory specifications:
 | `black-rose` | Black Rose Metallic | `#280816` | 0.05 | Machined Silver | `roundel` |
 | `watkins-glen` | Watkins Glen Gray Metallic | `#3e4347` | 0.03 | Competition Yellow | `stealth-jake` |
 
+### Curated Edition Visual Cards
+![Edition 01: Carbon Flash Metallic](images/editions/edition-carbon-flash.svg)
+![Edition 02: Torch Red Racing](images/editions/edition-torch-red.svg)
+![Edition 03: Watkins Glen Gray](images/editions/edition-watkins-glen.svg)
+![Edition 04: Arctic White Track](images/editions/edition-arctic-white.svg)
+![Edition 05: Laguna Blue Tintcoat](images/editions/edition-laguna-blue.svg)
+
 ---
 
 ## Dynamic Decal Projection System (`src/utils/stickerTextures.js`)
@@ -73,6 +80,16 @@ const decalGeometry = new DecalGeometry(
 
 ### Available Liveries:
 1. **Corvette Racing "Jake" Skull**: Iconic endurance racing mascot with crossflag eyes.
+![Livery 03: C7.R Le Mans](images/liveries/livery-c7r-endurance.svg)
+
+2. **Clean Factory Monolith**: Pure OEM finish without external graphics.
+![Livery 01: Clean Monolith](images/liveries/livery-clean-monolith.svg)
+
+3. **Dual Matte Racing Stripes**: Spine stripes extending across hood, roof, and decklid.
+![Livery 02: Dual Racing Stripes](images/liveries/livery-dual-racing-stripes.svg)
+
+4. **Track Edition Apex Accents**: Door threshold numbers and apex corner accents.
+![Livery 04: Track Apex](images/liveries/livery-track-apex.svg)
 2. **Grand Sport Hash Marks**: Authentic dual fender hash stripes honoring the 1963 Grand Sport racers.
 3. **Carbon Stinger Hood Spear**: Central carbon fiber accent following the hood heat extractor.
 4. **Bespoke Competition Roundel**: High-contrast racing number roundel.

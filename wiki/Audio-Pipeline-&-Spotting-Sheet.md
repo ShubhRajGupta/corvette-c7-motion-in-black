@@ -23,6 +23,8 @@ The audio architecture in **Corvette C7 "Motion in Black"** is engineered as a m
                                                                         [ Destination (Speakers) ]
 ```
 
+![10-Stem Web Audio Signal Routing Graph](images/audio/audio-signal-graph.svg)
+
 ---
 
 ## Broadcast Loudness Standards
@@ -32,9 +34,13 @@ The audio engine conforms to **EBU R128 / ITU-R BS.1770-4** standards for intera
 * **Maximum True Peak (dBTP)**: $-1.0\text{ dBTP}$ to prevent inter-sample clipping on consumer DACs and mobile amplifiers.
 * **Loudness Range (LRA)**: $12.5\text{ LU}$ (dynamic contrast between ambient stillness and aggressive V8 acceleration).
 
+![EBU R128 Broadcast Loudness Normalization](images/audio/audio-ebur128-compliance.svg)
+
 ---
 
 ## The 10-Stem Acoustic Matrix
+
+![Acoustic Frequency Spectrum Allocation](images/audio/audio-frequency-bands.svg)
 
 | Stem Identifier | Frequency Band | Nominal Gain | Dynamic Modulation Source | Primary Sonic Purpose |
 | :--- | :--- | :--- | :--- | :--- |
@@ -53,6 +59,8 @@ The audio engine conforms to **EBU R128 / ITU-R BS.1770-4** standards for intera
 
 ## Dynamic Sidechain Ducking Protocol
 
+![Dynamic Sidechain Ducking Curve](images/audio/audio-ducking-curve.svg)
+
 To preserve mix clarity and prevent muddy acoustic clutter during simultaneous events:
 1. **UI Transient Priority**: When `ui_select_thud` or `metallic_clicks` fire, `idle_ambient_drone` and `sub_bass_pulse` are ducked by $-4.5\text{ dB}$ over a $12\text{ms}$ attack window, holding for $180\text{ms}$ before returning over a $350\text{ms}$ exponential release.
 2. **Scroll Acceleration Priority**: Rapid scroll interaction attenuates the static room drone and amplifies aerodynamic wind rush and engine induction harmonics.
@@ -61,6 +69,8 @@ To preserve mix clarity and prevent muddy acoustic clutter during simultaneous e
 ---
 
 ## Interactive Audio Spotting Sheet (0.00 – 1.00)
+
+![Interactive Cue Spotting Timeline](images/audio/audio-timeline-cue-sheet.svg)
 
 | Scroll Interval | Camera / Visual Beat | Active Audio Stems | Filter Cutoff / Acoustic Shift | Emotional Texture |
 | :--- | :--- | :--- | :--- | :--- |

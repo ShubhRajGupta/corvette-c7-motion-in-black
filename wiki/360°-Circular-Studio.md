@@ -47,11 +47,15 @@ Automotive paint and carbon fiber only express their true surfacing when interac
 * **Geometry**: Inverted open cylinder ($R = 32\text{m}$, height $H = 12\text{m}$).
 * **Material**: Matte acoustic felt absorbing 96% of stray bounce light (`roughness: 0.95`, `metalness: 0.05`), ensuring deep cinematic blacks behind the vehicle profile.
 
+![Studio Blueprint: 360° Concentric Stage](images/studio/studio-stage-blueprint.svg)
+
 ---
 
 ## The Overhead Light Canopy
 
 The primary source of vehicle key light is an engineered octagonal softbox array suspended directly above the turntable at $Y = 5.2\text{m}$.
+
+![Overhead Softbox Canopy & Lighting Rig](images/studio/studio-overhead-canopy.svg)
 
 * **Canopy Geometry**:
   * Outer structural space-frame truss constructed from extruded hexagonal steel tubing.
@@ -72,21 +76,25 @@ Positioned symmetrically around the 360° perimeter of the stage, four thematic 
 * **Location**: Front-quarter passenger horizon.
 * **Props**: Aerodynamic boundary-layer vertical guide vanes, carbon fiber rear-wing display jig, illuminated aerodynamic pressure telemetry screens.
 * **Lighting**: Cool white ($6500\text{K}$) laser strip illumination.
+![Detailing Bay 01: Aerodynamics & Telemetry](images/studio/studio-bay01-aero.svg)
 
 ### Bay 02: Powertrain & LT4 Dyno Suite ($90^\circ - 180^\circ$)
 * **Location**: Rear-quarter passenger horizon.
 * **Props**: Floor-recessed dyno rollers, high-temp flexible exhaust extraction trunking, fluid management pressure tanks.
 * **Lighting**: Deep tungsten warning amber ($2400\text{K}$) low-level safety strips.
+![Detailing Bay 02: Powertrain & LT4 Dyno Suite](images/studio/studio-bay02-dyno.svg)
 
 ### Bay 03: Chassis, Suspension & Braking ($180^\circ - 270^\circ$)
 * **Location**: Rear-quarter driver horizon.
 * **Props**: Vertical Michelin Pilot Super Sport tire rack, Brembo carbon-ceramic rotor inspection stand, magnetic suspension calibration fixture.
 * **Lighting**: Neutral daylight ($5000\text{K}$) vertical light battens.
+![Detailing Bay 03: Chassis, Suspension & Brakes](images/studio/studio-bay03-chassis.svg)
 
 ### Bay 04: Cockpit & Carbon Craftsmanship ($270^\circ - 360^\circ$)
 * **Location**: Front-quarter driver horizon.
 * **Props**: Carbon-weave composite sample plates, Competition Sport seat display armature, driver helmet and telemetry headset console.
 * **Lighting**: Warm architectural accent downlights ($3200\text{K}$).
+![Detailing Bay 04: Cockpit & Carbon Craftsmanship](images/studio/studio-bay04-cockpit.svg)
 
 ---
 

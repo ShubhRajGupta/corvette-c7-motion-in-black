@@ -39,9 +39,13 @@ src/App.jsx
         └── PostProcessingEffects.jsx   [Selective bloom & chromatic aberration]
 ```
 
+![React 19 & Three.js Component Hierarchy](images/architecture/arch-component-tree.svg)
+
 ---
 
 ## Rendering Pipeline Specifications
+
+![Unified RequestAnimationFrame Render Loop](images/architecture/arch-render-loop.svg)
 
 | Property | Value | Rationale |
 | :--- | :--- | :--- |
@@ -56,6 +60,8 @@ src/App.jsx
 
 ## State Management Architecture
 
+![Catmull-Rom Spline & Cylindrical Orbit Math](images/architecture/arch-kinematics-spline.svg)
+
 The application adopts a unidirectional, zero-overhead state pattern using native React primitives (`useState`, `useRef`, `useCallback`) rather than heavy external state containers:
 
 - **Scrub Scrubber Loop**: An internal `requestAnimationFrame` loop in `App.jsx` handles physics damping (`diff * 0.08`) of `timelineProgress`.
@@ -63,6 +69,10 @@ The application adopts a unidirectional, zero-overhead state pattern using nativ
 - **Audio Update Loop**: Calls `cinematicAudio.update(progress, velocity, options)` directly from the frame loop with instantaneous response.
 
 ---
+
+## Offscreen Shader Prewarming Flow
+
+![Offscreen Shader Cache & Compile Sequence](images/architecture/arch-prewarmer-flow.svg)
 
 ## Production Build & Bundle Breakdown
 

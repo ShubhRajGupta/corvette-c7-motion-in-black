@@ -29,9 +29,13 @@ The experience provides a dynamic **Dual Font Architecture**, allowing instant s
 | **Body Narrative** | Inter / Barlow | $400$ (Regular) / Normal | Sentence | Vehicle history, aerodynamic analysis paragraphs |
 | **Telemetry HUD** | JetBrains Mono / Space Mono | $500$ (Medium) / $+0.04\text{em}$ | Tabular figures | RPM, G-meter, Boost (PSI), Camera $(X,Y,Z)$, Timecode |
 
+![Dual-Font Architecture Comparison](images/ui/ui-font-comparison.svg)
+
 ---
 
 ## Minimalist Contextual HUD Layout
+
+![Minimal Contextual HUD Layout](images/ui/ui-spatial-hud-layout.svg)
 
 ```
   +-------------------------------------------------------------------------+
@@ -53,8 +57,10 @@ The experience provides a dynamic **Dual Font Architecture**, allowing instant s
 * **Right**: Quick-action toggles:
   * Audio mute / unmute button with live animated waveform bars.
   * Font system switcher (`Big Shoulders` $\leftrightarrow$ `Barlow`).
+  * Circular GitHub repository link button with touch/hover opacity boost.
 
 ### 2. Vehicle Specification Dossier (Left Drawer)
+![Technical Engineering Dossier Drawer](images/ui/ui-technical-dossier.svg)
 * Non-persistent, discreetly collapsed by default.
 * Clicking or hovering expands an engineered specification drawer:
   * **Engine**: $6.2\text{L}$ Supercharged LT4 V8 with Eaton 1.7L TVS.
@@ -64,12 +70,16 @@ The experience provides a dynamic **Dual Font Architecture**, allowing instant s
   * **Dry Weight**: $1,598\text{ kg}$ ($3,524\text{ lbs}$).
 
 ### 3. Factory Edition Color Selector (Bottom Right)
+![Factory Curated Color Swatch Palette](images/ui/ui-color-swatch-dock.svg)
 * Offers 5 authentic factory-calibrated exterior paint finishes:
   1. **Carbon Flash Metallic**: Deep obsidian black with micro-metallic gold/violet pearl.
   2. **Torch Red Racing**: High-saturation racing scarlet with crystal-clear resin topcoat.
   3. **Watkins Glen Gray**: Industrial matte-adjacent metallic charcoal with high anisotropic sheen.
   4. **Arctic White Track**: High-contrast crisp white with black carbon aero accents.
   5. **Laguna Blue Tintcoat**: Deep cerulean metallic with cyan highlights under canopy spot arrays.
+
+### 4. Telemetry Diagnostics HUD (`Shift + V`, `Shift + L`)
+![Development Telemetry Diagnostics HUD](images/ui/ui-telemetry-hud-overlay.svg)
 
 ---
 

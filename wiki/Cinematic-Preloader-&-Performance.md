@@ -36,6 +36,8 @@ The Corvette C7 platform resolves this through an **engineered asset orchestrati
 
 ## Pre-React Inline Boot Shell (0ms FCP)
 
+![Pre-React Zero-Latency Boot Shell](images/preloader/preloader-inline-shell.svg)
+
 Before Vite's JavaScript bundle finishes downloading or React 19 hydrates, the user immediately sees a styled, branded boot shell rendered directly from `index.html`:
 * Inline CSS embedded in `<style>` tags with no external dependencies.
 * Lightweight SVG silhouette of the Corvette Stingray with an animated glowing pulse line.
@@ -45,6 +47,8 @@ Before Vite's JavaScript bundle finishes downloading or React 19 hydrates, the u
 ---
 
 ## Weighted Readiness Model
+
+![Milestone-Weighted Readiness Math](images/preloader/preloader-weighted-model.svg)
 
 Progress is never calculated from an arbitrary timer. It tracks four distinct subsystem readiness vectors with mathematical weighting:
 
@@ -60,6 +64,8 @@ $$\text{Progress}_{total} = (W_{geom} \cdot S_{geom}) + (W_{tex} \cdot S_{tex}) 
 ---
 
 ## The 8-Phase Cinematic Staging Sequence
+
+![8-Phase Progressive Assembly Sequence](images/preloader/preloader-8-phases.svg)
 
 The preloader transforms asset loading into an evocative automotive calibration ceremony:
 
@@ -77,6 +83,8 @@ The preloader transforms asset loading into an evocative automotive calibration 
 ---
 
 ## GPU Shader Prewarming (`ScenePrewarmer.jsx`)
+
+![GPU Shader Prewarming Pipeline](images/preloader/preloader-gpu-prewarming.svg)
 
 A frequent cause of frame stutter in Three.js occurs when a material is first rendered into the camera frustum—triggering runtime GLSL compilation on the GPU.
 

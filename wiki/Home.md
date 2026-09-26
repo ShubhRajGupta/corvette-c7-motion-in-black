@@ -2,6 +2,8 @@
 
 Welcome to the official documentation and engineering wiki for **Chevrolet Corvette C7 — Motion in Black**, an interactive 3D automotive film and 360° circular modification atelier built with React 19, Three.js, and Vite.
 
+![Chevrolet Corvette C7 Stingray Hero Shot](images/camera/pose-01-low-front-34.svg)
+
 ---
 
 ## 📖 Wiki Navigation

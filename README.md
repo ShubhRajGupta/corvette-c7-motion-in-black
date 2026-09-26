@@ -13,6 +13,8 @@
 
 **CORVETTE C7: MOTION IN BLACK** is a state-of-the-art interactive WebGL experience, automotive monograph, and 360° modification atelier celebrating the seventh-generation Chevrolet Corvette Stingray.
 
+![Corvette C7 Hero Shot](docs/images/camera/pose-01-low-front-34.svg)
+
 Combining Hollywood technocrane camera choreography, physically based rendering (PBR), a decoupled 10-stem Web Audio mixing engine, dynamic optical diffusion VFX, an 8-phase progressive assembly preloader, and an autonomous 10-pose Idle Showroom cinematography engine, the project elevates web graphics into a cohesive luxury automotive film.
 
 ```

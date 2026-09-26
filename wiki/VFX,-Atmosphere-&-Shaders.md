@@ -24,6 +24,8 @@ The visual effects architecture in **Corvette C7 "Motion in Black"** is engineer
   [ Output to HTML5 Canvas (sRGB Encoded) ]
 ```
 
+![Post-Processing Compositor Stack](images/vfx/vfx-optical-stack.svg)
+
 ---
 
 ## Atmospheric Fog & Ground Mist
@@ -35,6 +37,7 @@ The visual effects architecture in **Corvette C7 "Motion in Black"** is engineer
 * **Function**: Softly dissolves distant cyclorama geometry without tinting or graying the deep black studio floor.
 
 ### 2. Stratified Ground-Level Mist
+![Stratified Low-Altitude Ground Fog](images/vfx/vfx-stratified-ground-mist.svg)
 * **Implementation**: Low-altitude horizontal planar mesh placed at $Y = 0.08\text{m}$ beneath the vehicle chassis.
 * **Shader Mechanics**:
   * Procedural simplex noise modulated over time to simulate slow thermal air currents.
@@ -46,6 +49,7 @@ The visual effects architecture in **Corvette C7 "Motion in Black"** is engineer
 ## Custom Post-Processing Shaders
 
 ### 1. Selective High-Luminance Bloom
+![Selective High-Luminance Bloom Pass](images/vfx/vfx-bloom-threshold.svg)
 * **Pass**: Modified `UnrealBloomPass`
 * **Parameters**:
   * `luminanceThreshold`: `0.85` (ensures car body panels and floor do not bleed).
@@ -55,6 +59,7 @@ The visual effects architecture in **Corvette C7 "Motion in Black"** is engineer
 * **Target Elements**: Only active LED daytime running lights, canopy softbox diffusers, and laser alignment markers trigger bloom.
 
 ### 2. 35mm Motion Picture Film Grain
+![35mm Film Grain Emulsion Shader](images/vfx/vfx-film-grain-emulsion.svg)
 To eliminate sterile digital cleanliness and prevent 8-bit color banding in low-light gradients:
 * **Shader**: Procedural Perlin noise fragment shader operating in screen space.
 * **Characteristics**:
@@ -63,6 +68,7 @@ To eliminate sterile digital cleanliness and prevent 8-bit color banding in low-
   * Grain intensity attenuated dynamically: higher in midtones ($0.038$), subdued in true blacks ($0.012$) to preserve contrast.
 
 ### 3. Radial Chromatic Aberration & Vignette
+![Chromatic Aberration & Vignette Lens Pass](images/vfx/vfx-chromatic-dispersion.svg)
 * **Vignette**: Natural optical light falloff parameterized by cosine-fourth law ($I = I_0 \cdot \cos^4 \theta$). Darkens peripheral screen margins by $28\%$, naturally guiding the eye toward the vehicle center.
 * **Chromatic Aberration**:
   * Simulates physical lens dispersion towards the glass perimeter.

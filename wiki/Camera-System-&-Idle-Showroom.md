@@ -65,15 +65,45 @@ When no scroll, pointer, or keyboard interaction is detected for **4.5 seconds**
 ### Authored Idle Poses (`src/constants/idlePoses.js`)
 
 1. **`LOW_FRONT_34`**: Aggressive front-quarter shot at knee height ($Y = 0.58\text{m}$, $\text{FOV} = 32^\circ$), emphasizing the wide track and grille air dam.
+![Pose 01: Low Front 3/4 Hero](images/camera/pose-01-low-front-34.svg)
+
 2. **`EXTREME_LOW_FRONT`**: Ground-skimming perspective ($Y = 0.22\text{m}$, $\text{FOV} = 28^\circ$), framing the Corvette emblem against the overhead light canopy.
+![Pose 02: Extreme Low-Angle Front](images/camera/pose-02-extreme-low-front.svg)
+
 3. **`SIDE_PROFILE_SCULPTURE`**: Flat side telephoto ($Z = 0.0\text{m}$, $X = 5.8\text{m}$, $\text{FOV} = 24^\circ$), showcasing the iconic Stingray roof rake and wheelbase proportion.
+![Pose 03: Side Profile Sculpture](images/camera/pose-03-side-profile.svg)
+
 4. **`REAR_34_MUSCULAR`**: Low rear three-quarter shot highlighting the wide rear fenders and spoiler aero blades.
+![Pose 04: Rear 3/4 Muscular Stance](images/camera/pose-04-rear-34-muscular.svg)
+
 5. **`REAR_LOW_EXHAUSTS`**: Macro-adjacent framing centered on the central 4-barrel titanium exhaust tips and diffuser strakes.
+![Pose 05: Rear Low Quad Exhausts](images/camera/pose-05-rear-low-exhausts.svg)
+
 6. **`HIGH_34_DRAMATIC`**: High crane-arm perspective ($Y = 3.2\text{m}$, $\text{FOV} = 40^\circ$), casting the vehicle's shadow into the polished floor.
+![Pose 06: High 3/4 Dramatic Top](images/camera/pose-06-high-34-dramatic.svg)
+
 7. **`BIRDS_EYE_TOP_VIEW`**: Pure zenith down-shot ($Y = 6.4\text{m}$, $\text{FOV} = 30^\circ$), illustrating the aerodynamic teardrop cabin taper.
+![Pose 07: Elevated Bird's-Eye Top View](images/camera/pose-07-birds-eye-top.svg)
+
 8. **`HEADLIGHT_LOUVER_MACRO`**: Tight detail shot on the left projector optics and hood heat extractor louvers ($\text{FOV} = 22^\circ$).
+![Pose 08: Headlight & Carbon Louver Macro](images/camera/pose-08-headlight-macro.svg)
+
 9. **`WHEEL_BREMBO_MACRO`**: Low wheel-well detail highlighting the drilled carbon-ceramic brake disc and Corvette-branded monobloc caliper.
+![Pose 09: Wheel & Brembo Caliper Macro](images/camera/pose-09-wheel-caliper-macro.svg)
+
 10. **`WIDE_HANGAR_HERO`**: Atmospheric wide shot ($D = 9.2\text{m}$, $\text{FOV} = 46^\circ$), framing the entire illuminated circular stage and detailing bays.
+![Pose 10: Wide Environmental Hangar Hero](images/camera/pose-10-wide-hangar-hero.svg)
+
+---
+
+### Interactive Narrative Chapters (0.00 – 1.00)
+
+![Chapter 01: Cold Studio Reveal](images/chapters/chapter-01-cold-reveal.svg)
+![Chapter 02: Sculptural Shoulder Sweep](images/chapters/chapter-02-sculptural-sweep.svg)
+![Chapter 03: Carbon Roof & Heat Extraction](images/chapters/chapter-03-carbon-canopy.svg)
+![Chapter 04: Rear Aggression & Quad Exhausts](images/chapters/chapter-04-titanium-exhaust.svg)
+![Chapter 05: Flank Telemetry & Z06 Brakes](images/chapters/chapter-05-racing-pedigree.svg)
+![Chapter 06: Grand Finale 360° Atelier Reveal](images/chapters/chapter-06-grand-finale.svg)
 
 ---
 
