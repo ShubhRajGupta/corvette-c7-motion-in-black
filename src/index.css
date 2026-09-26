@@ -547,7 +547,85 @@ html, body {
 }
 
 .editorial-layer.is-idle {
-  opacity: 0.22;
+  opacity: 1;
+}
+
+.editorial-layer.is-idle > .comp-zone {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Autonomous Screensaver Virtual Cinematographer Telemetry (Requirement 69) */
+.screensaver-telemetry-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  animation: screensaverFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes screensaverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screensaver-corner-stamp {
+  position: absolute;
+  bottom: clamp(28px, 4.5vh, 52px);
+  left: clamp(24px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(4, 2, 3, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid var(--accent-red, #cc0a15);
+  padding: 8px 14px;
+  border-radius: 4px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.screensaver-corner-stamp .stamp-kicker {
+  font-family: var(--font-condensed);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-red, #cc0a15);
+}
+
+.screensaver-corner-stamp .stamp-title {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.screensaver-dramatic-hero {
+  animation: screensaverHeroIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes screensaverHeroIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 .scene-container {

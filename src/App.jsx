@@ -16,6 +16,16 @@ function App() {
   const [isExploreMode, setIsExploreMode] = useState(false);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [isIdle, setIsIdle] = useState(false);
+  const [idleTelemetry, setIdleTelemetry] = useState(null);
+  const idleTelemetryRef = useRef(null);
+
+  const handleIdleChange = useCallback((active, telemetry) => {
+    setIsIdle(active);
+    if (telemetry) {
+      idleTelemetryRef.current = telemetry;
+      setIdleTelemetry(telemetry);
+    }
+  }, []);
   const [showLoadStats, setShowLoadStats] = useState(false);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
@@ -94,7 +104,8 @@ function App() {
     isIdleRef.current = isIdle;
     isExploreModeRef.current = isExploreMode;
     isExperienceReadyRef.current = isExperienceReady;
-  }, [isIdle, isExploreMode, isExperienceReady]);
+    idleTelemetryRef.current = idleTelemetry;
+  }, [isIdle, isExploreMode, isExperienceReady, idleTelemetry]);
 
   // Master smooth scroll scrubber loop with physical inertia
   useEffect(() => {
@@ -131,6 +142,7 @@ function App() {
       cinematicAudio.update(currentProgressRef.current, velocity, {
         isIdle: isIdleRef.current,
         isExploreMode: isExploreModeRef.current,
+        idleTelemetry: idleTelemetryRef.current,
       });
       lastProgress = currentProgressRef.current;
 
@@ -216,7 +228,7 @@ function App() {
         activeStickerId={activeStickerId}
         vfxSettings={vfxSettings}
         isDossierOpen={isDossierOpen}
-        onIdleStateChange={setIsIdle}
+        onIdleStateChange={handleIdleChange}
         onSceneAttached={reportSceneAttached}
         onShadersPrewarmed={reportShadersPrewarmed}
       />
@@ -263,6 +275,7 @@ function App() {
         timelineProgress={timelineProgress}
         fontMode={fontMode}
         isIdle={isIdle}
+        idleTelemetry={idleTelemetry}
       />
 
       {/* Floating Minimalist Curated Side Palette & Livery Dock */}
