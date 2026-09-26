@@ -1,0 +1,287 @@
+export const CAR_SPECS = [
+  {
+    id: 'velocity-yellow',
+    name: 'VELOCITY YELLOW',
+    edition: 'C7.R RACING EDITION',
+    swatch: '#f5b800',
+    accentSwatch: '#111113',
+    paint: {
+      color: '#f5b800',
+      metalness: 0.82,
+      roughness: 0.12,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.03,
+      reflectivity: 0.98,
+      envMapIntensity: 2.2,
+    },
+    calipers: {
+      color: '#121214',
+      emissive: '#050506',
+      emissiveIntensity: 0.15,
+      metalness: 0.92,
+      roughness: 0.18,
+    },
+    rims: {
+      color: '#101114',
+      metalness: 0.95,
+      roughness: 0.22,
+    },
+    interior: {
+      color: '#1c1c20',
+      roughness: 0.42,
+    },
+    ambient: {
+      rimLight: '#ffb400',
+      backlight: '#e62000',
+      floorGlow: '#cc8800',
+    },
+    defaultSticker: 'jake',
+    badgeColor: '#e0a800',
+    tagline: 'CORVETTE RACING LE MANS HERITAGE',
+  },
+  {
+    id: 'sebring-orange',
+    name: 'SEBRING ORANGE',
+    edition: 'ZR1 TINTCOAT METALLIC',
+    swatch: '#e64a19',
+    accentSwatch: '#0a0a0c',
+    paint: {
+      color: '#e64a19',
+      metalness: 0.86,
+      roughness: 0.11,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.025,
+      reflectivity: 0.99,
+      envMapIntensity: 2.3,
+    },
+    calipers: {
+      color: '#0e0f12',
+      emissive: '#040405',
+      emissiveIntensity: 0.1,
+      metalness: 0.9,
+      roughness: 0.2,
+    },
+    rims: {
+      color: '#0e0e11',
+      metalness: 0.96,
+      roughness: 0.18,
+    },
+    interior: {
+      color: '#191a1d',
+      roughness: 0.4,
+    },
+    ambient: {
+      rimLight: '#ff5500',
+      backlight: '#d82000',
+      floorGlow: '#cc3300',
+    },
+    defaultSticker: 'grand_sport',
+    badgeColor: '#e64a19',
+    tagline: 'SUPERCHARGED TRACK WEAPON',
+  },
+  {
+    id: 'torch-red',
+    name: 'TORCH RED',
+    edition: 'GRAND SPORT HERITAGE',
+    swatch: '#d3101c',
+    accentSwatch: '#bcc1ca',
+    paint: {
+      color: '#d3101c',
+      metalness: 0.78,
+      roughness: 0.1,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.028,
+      reflectivity: 0.98,
+      envMapIntensity: 2.2,
+    },
+    calipers: {
+      color: '#0d0e11',
+      emissive: '#040405',
+      emissiveIntensity: 0.15,
+      metalness: 0.88,
+      roughness: 0.22,
+    },
+    rims: {
+      color: '#bcc1ca', // Liquid Silver machined aluminum
+      metalness: 0.96,
+      roughness: 0.12,
+    },
+    interior: {
+      color: '#8a1219', // Deep Adrenaline Red leather
+      roughness: 0.38,
+    },
+    ambient: {
+      rimLight: '#ff1a26',
+      backlight: '#c40812',
+      floorGlow: '#cc0a15',
+    },
+    defaultSticker: 'grand_sport',
+    badgeColor: '#e31924',
+    tagline: 'QUINTESSENTIAL AMERICAN ICON',
+  },
+  {
+    id: 'laguna-blue',
+    name: 'LAGUNA BLUE',
+    edition: 'STINGRAY METALLIC',
+    swatch: '#0066cc',
+    accentSwatch: '#eab308',
+    paint: {
+      color: '#0066cc',
+      metalness: 0.88,
+      roughness: 0.11,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.03,
+      reflectivity: 0.98,
+      envMapIntensity: 2.3,
+    },
+    calipers: {
+      color: '#eab308', // Racing Yellow Brembo
+      emissive: '#382b02',
+      emissiveIntensity: 0.2,
+      metalness: 0.5,
+      roughness: 0.16,
+    },
+    rims: {
+      color: '#22252d', // Dark Titanium Graphite
+      metalness: 0.94,
+      roughness: 0.2,
+    },
+    interior: {
+      color: '#7c4a27', // Kalahari Saddle Cognac leather
+      roughness: 0.44,
+    },
+    ambient: {
+      rimLight: '#00b4ff',
+      backlight: '#003cd0',
+      floorGlow: '#0055bb',
+    },
+    defaultSticker: 'stinger',
+    badgeColor: '#0088ff',
+    tagline: 'ELECTRIC COASTAL MONSTER',
+  },
+  {
+    id: 'arctic-white',
+    name: 'ARCTIC WHITE',
+    edition: 'COMPETITION CARBON',
+    swatch: '#f2f4f7',
+    accentSwatch: '#d3101c',
+    paint: {
+      color: '#f2f4f7',
+      metalness: 0.42,
+      roughness: 0.1,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.03,
+      reflectivity: 0.96,
+      envMapIntensity: 2.0,
+    },
+    calipers: {
+      color: '#d3101c', // Torch Red Brembos
+      emissive: '#380306',
+      emissiveIntensity: 0.25,
+      metalness: 0.4,
+      roughness: 0.15,
+    },
+    rims: {
+      color: '#101114', // Carbon Flash Black
+      metalness: 0.95,
+      roughness: 0.2,
+    },
+    interior: {
+      color: '#94161d', // Adrenaline Red leather
+      roughness: 0.38,
+    },
+    ambient: {
+      rimLight: '#f5f7fa',
+      backlight: '#e0141f',
+      floorGlow: '#cc0a15',
+    },
+    defaultSticker: 'roundel',
+    badgeColor: '#d3101c',
+    tagline: 'PURE HIGH-CONTRAST MOTORSPORT',
+  },
+  {
+    id: 'obsidian-stealth',
+    name: 'OBSIDIAN STEALTH',
+    edition: 'MOTION IN BLACK',
+    swatch: '#070709',
+    accentSwatch: '#e0141f',
+    paint: {
+      color: '#070709',
+      metalness: 0.88,
+      roughness: 0.12,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.035,
+      reflectivity: 0.98,
+      envMapIntensity: 2.2,
+    },
+    calipers: {
+      color: '#e0141f', // Torch Red Brembos
+      emissive: '#400407',
+      emissiveIntensity: 0.25,
+      metalness: 0.4,
+      roughness: 0.15,
+    },
+    rims: {
+      color: '#1c1e22',
+      metalness: 0.94,
+      roughness: 0.16,
+    },
+    interior: {
+      color: '#94161d',
+      roughness: 0.38,
+    },
+    ambient: {
+      rimLight: '#f0f2f5',
+      backlight: '#e6101c',
+      floorGlow: '#cc0a15',
+    },
+    defaultSticker: 'stealth_jake',
+    badgeColor: '#e31924',
+    tagline: 'CINEMATIC PROTAGONIST ORIGINAL',
+  },
+];
+
+export const STICKER_OPTIONS = [
+  {
+    id: 'jake',
+    name: 'JAKE RACING SKULL',
+    label: 'JAKE SKULL',
+    type: 'hood',
+    desc: 'Official Corvette Racing Le Mans Mascot',
+  },
+  {
+    id: 'grand_sport',
+    name: 'GRAND SPORT HASHES',
+    label: 'GS HASH MARKS',
+    type: 'fender',
+    desc: 'Dual Track Heritage Fender Stripes',
+  },
+  {
+    id: 'stinger',
+    name: 'STINGER HOOD SPEAR',
+    label: 'STINGER SPEAR',
+    type: 'hood',
+    desc: 'Aggressive Center Extractor Spear',
+  },
+  {
+    id: 'roundel',
+    name: 'LE MANS #3 ROUNDEL',
+    label: '#3 ROUNDEL',
+    type: 'roundel',
+    desc: 'Corvette Racing 24H Le Mans Class Winner',
+  },
+  {
+    id: 'stealth_jake',
+    name: 'STEALTH SHADOW JAKE',
+    label: 'STEALTH JAKE',
+    type: 'hood',
+    desc: 'Gloss on Matte Phantom Skull',
+  },
+  {
+    id: 'none',
+    name: 'CLEAN // NO LIVERY',
+    label: 'CLEAN BODY',
+    type: 'none',
+    desc: 'Pure Unadorned Sculptural Surface',
+  },
+];
