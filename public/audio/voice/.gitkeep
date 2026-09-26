@@ -1,0 +1,3 @@
+# Voice / Spoken Dialogue Stems Directory
+# Drop optional narration, technical cues, or vocal identifiers here (e.g. c7_voice_intro.ogg)
+# Format: 48kHz, 24-bit WAV (Master) / OGG or AAC (Web Delivery)
