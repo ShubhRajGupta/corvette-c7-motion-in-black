@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" style="background:#07080b; font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141722" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0a0c12" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="redAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff1e27"/>
+      <stop offset="100%" stop-color="#ff5e62"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="960" height="540" fill="#07080b"/>
+  <rect width="960" height="540" fill="url(#gridPattern)"/>
+
+  <!-- Outer Border Frame -->
+  <rect x="20" y="20" width="920" height="500" rx="8" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <!-- Technical Corner Marks -->
+  <path d="M 28 40 L 40 40 L 40 28" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 932 40 L 920 40 L 920 28" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 28 500 L 40 500 L 40 512" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 932 500 L 920 500 L 920 512" fill="none" stroke="#ff1e27" stroke-width="2"/>
+
+  <!-- Header Section -->
+  <g transform="translate(50, 60)">
+    <text x="0" y="0" fill="#ff1e27" font-size="11" font-weight="800" letter-spacing="0.25em" font-family="'Space Mono', monospace">360° CIRCULAR MODIFICATION STUDIO</text>
+    <text x="0" y="30" fill="#ffffff" font-size="24" font-weight="900" letter-spacing="0.08em">Detailing Bay 01: Aerodynamics & Telemetry</text>
+    <text x="0" y="52" fill="#8892b0" font-size="13" font-weight="500" letter-spacing="0.05em">Azimuth: 0° - 90° | Boundary Layer Guide Vanes | Carbon Splitter Jig</text>
+  </g>
+
+  <!-- Visual Content Zone -->
+  <g transform="translate(50, 140)">
+    
+    <!-- Concentric Stage Radial Blueprint -->
+    <g transform="translate(60, 20)">
+      <circle cx="160" cy="140" r="130" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+      <circle cx="160" cy="140" r="95" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <circle cx="160" cy="140" r="55" fill="none" stroke="#ff1e27" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+      <!-- 4 Detailing Bay Quadrants -->
+      <line x1="160" y1="10" x2="160" y2="270" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <line x1="30" y1="140" x2="290" y2="140" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+      <!-- Bay 01 (Top-Right), Bay 02 (Bottom-Right), Bay 03 (Bottom-Left), Bay 04 (Top-Left) -->
+      <text x="210" y="80" fill="#ff1e27" font-size="10" font-family="'Space Mono', monospace" font-weight="700">BAY 01: AERO</text>
+      <text x="210" y="210" fill="#8892b0" font-size="10" font-family="'Space Mono', monospace" font-weight="700">BAY 02: DYNO</text>
+      <text x="50" y="210" fill="#8892b0" font-size="10" font-family="'Space Mono', monospace" font-weight="700">BAY 03: BRAKES</text>
+      <text x="50" y="80" fill="#8892b0" font-size="10" font-family="'Space Mono', monospace" font-weight="700">BAY 04: COCKPIT</text>
+
+      <!-- Center Turntable Core -->
+      <circle cx="160" cy="140" r="16" fill="#141722" stroke="#ff1e27" stroke-width="2"/>
+      <text x="160" y="144" text-anchor="middle" fill="#ffffff" font-size="8" font-family="'Space Mono', monospace">C7</text>
+    </g>
+
+    <!-- Studio Specs Data Card -->
+    <g transform="translate(420, 20)">
+      <rect x="0" y="0" width="420" height="280" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="24" y="32" fill="#ffffff" font-size="14" font-weight="700">ARCHITECTURAL SPECIFICATION</text>
+      <text x="24" y="52" fill="#8892b0" font-size="10" font-family="'Space Mono', monospace">CONTROLLED LUMINANCE HIERARCHY</text>
+      <line x1="24" y1="68" x2="396" y2="68" stroke="rgba(255,255,255,0.08)"/>
+
+      <g transform="translate(24, 90)">
+        <text x="0" y="0" fill="#555d77" font-size="10" font-family="'Space Mono', monospace">ZONE DESCRIPTION</text>
+        <text x="0" y="20" fill="#ffffff" font-size="12" font-weight="600">Aero development bay with wind tunnel telemetry displays</text>
+      </g>
+
+      <g transform="translate(24, 150)">
+        <text x="0" y="0" fill="#555d77" font-size="10" font-family="'Space Mono', monospace">AMBIENT LIGHT BASELINE</text>
+        <text x="0" y="20" fill="#00e5ff" font-size="12" font-weight="600">0.02 – 0.05 cd/m² (No Shadow Washout)</text>
+      </g>
+
+      <g transform="translate(24, 210)">
+        <text x="0" y="0" fill="#555d77" font-size="10" font-family="'Space Mono', monospace">FLOOR MATERIAL FINISH</text>
+        <text x="0" y="20" fill="#ff1e27" font-size="12" font-weight="700">Liquid Resin Clearcoat over Anisotropic Slab</text>
+      </g>
+    </g>
+  
+  </g>
+
+  <!-- Footer Telemetry -->
+  <g transform="translate(50, 498)">
+    <line x1="0" y1="0" x2="860" y2="0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="0" y="20" fill="#555d77" font-size="10" font-family="'Space Mono', monospace" letter-spacing="0.15em">CHEVROLET CORVETTE C7 // MOTION IN BLACK // SPEC 650 HP // STINGRAY Z06</text>
+    <text x="860" y="20" text-anchor="end" fill="#555d77" font-size="10" font-family="'Space Mono', monospace" letter-spacing="0.15em">THREE.JS r186 // REACT 19</text>
+  </g>
+</svg>

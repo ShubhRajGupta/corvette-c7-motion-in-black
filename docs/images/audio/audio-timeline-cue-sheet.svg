@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" style="background:#07080b; font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141722" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0a0c12" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="redAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff1e27"/>
+      <stop offset="100%" stop-color="#ff5e62"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="960" height="540" fill="#07080b"/>
+  <rect width="960" height="540" fill="url(#gridPattern)"/>
+
+  <!-- Outer Border Frame -->
+  <rect x="20" y="20" width="920" height="500" rx="8" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <!-- Technical Corner Marks -->
+  <path d="M 28 40 L 40 40 L 40 28" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 932 40 L 920 40 L 920 28" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 28 500 L 40 500 L 40 512" fill="none" stroke="#ff1e27" stroke-width="2"/>
+  <path d="M 932 500 L 920 500 L 920 512" fill="none" stroke="#ff1e27" stroke-width="2"/>
+
+  <!-- Header Section -->
+  <g transform="translate(50, 60)">
+    <text x="0" y="0" fill="#ff1e27" font-size="11" font-weight="800" letter-spacing="0.25em" font-family="'Space Mono', monospace">MASTER AUDIO PIPELINE // EBU R128</text>
+    <text x="0" y="30" fill="#ffffff" font-size="24" font-weight="900" letter-spacing="0.08em">Interactive Cue Spotting Timeline</text>
+    <text x="0" y="52" fill="#8892b0" font-size="13" font-weight="500" letter-spacing="0.05em">Dynamic audio stem blend weights synchronized with scroll progress 0.00 – 1.00</text>
+  </g>
+
+  <!-- Visual Content Zone -->
+  <g transform="translate(50, 140)">
+    
+    <!-- Graphic Equalizer & Frequency Plot -->
+    <g transform="translate(60, 20)">
+      <rect x="0" y="0" width="720" height="140" rx="6" fill="#141722" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <!-- Frequency Bars -->
+      
+        <rect x="40" y="75" width="24" height="45" rx="3" fill="#ff1e27"/>
+      
+        <rect x="84" y="45" width="24" height="75" rx="3" fill="rgba(255,255,255,0.4)"/>
+      
+        <rect x="128" y="30" width="24" height="90" rx="3" fill="#00e5ff"/>
+      
+        <rect x="172" y="55" width="24" height="65" rx="3" fill="#ff1e27"/>
+      
+        <rect x="216" y="80" width="24" height="40" rx="3" fill="#00e5ff"/>
+      
+        <rect x="260" y="65" width="24" height="55" rx="3" fill="rgba(255,255,255,0.4)"/>
+      
+        <rect x="304" y="40" width="24" height="80" rx="3" fill="#ff1e27"/>
+      
+        <rect x="348" y="20" width="24" height="100" rx="3" fill="rgba(255,255,255,0.4)"/>
+      
+        <rect x="392" y="50" width="24" height="70" rx="3" fill="#00e5ff"/>
+      
+        <rect x="436" y="70" width="24" height="50" rx="3" fill="#ff1e27"/>
+      
+        <rect x="480" y="55" width="24" height="65" rx="3" fill="#00e5ff"/>
+      
+        <rect x="524" y="35" width="24" height="85" rx="3" fill="rgba(255,255,255,0.4)"/>
+      
+        <rect x="568" y="25" width="24" height="95" rx="3" fill="#ff1e27"/>
+      
+        <rect x="612" y="80" width="24" height="40" rx="3" fill="rgba(255,255,255,0.4)"/>
+      
+        <rect x="656" y="90" width="24" height="30" rx="3" fill="#00e5ff"/>
+      
+      <!-- 0 dB True Peak Line -->
+      <line x1="20" y1="25" x2="700" y2="25" stroke="#ff1e27" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="690" y="20" text-anchor="end" fill="#ff1e27" font-size="9" font-family="'Space Mono', monospace">-1.0 dBTP CEILING</text>
+    </g>
+
+    <!-- Audio Metrics Details -->
+    <g transform="translate(60, 180)">
+      <rect x="0" y="0" width="720" height="90" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <g transform="translate(24, 24)">
+        <text x="0" y="0" fill="#555d77" font-size="10" font-family="'Space Mono', monospace">SIGNAL PIPELINE TOPOLOGY</text>
+        <text x="0" y="22" fill="#ffffff" font-size="13" font-weight="600">Discrete procedural fallback synthesizer for zero-latency instant unlock</text>
+      </g>
+    </g>
+  
+  </g>
+
+  <!-- Footer Telemetry -->
+  <g transform="translate(50, 498)">
+    <line x1="0" y1="0" x2="860" y2="0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="0" y="20" fill="#555d77" font-size="10" font-family="'Space Mono', monospace" letter-spacing="0.15em">CHEVROLET CORVETTE C7 // MOTION IN BLACK // SPEC 650 HP // STINGRAY Z06</text>
+    <text x="860" y="20" text-anchor="end" fill="#555d77" font-size="10" font-family="'Space Mono', monospace" letter-spacing="0.15em">THREE.JS r186 // REACT 19</text>
+  </g>
+</svg>
