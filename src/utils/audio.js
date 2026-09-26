@@ -464,44 +464,26 @@ class CinematicAudioEngine {
   /**
    * Synchronize Idle Camera Showroom Mode
    */
-  setIdleState(isIdle, telemetry = null) {
+  setIdleState(isIdle, poseId = null) {
     this.isIdle = !!isIdle;
-    this.idleTelemetry = telemetry;
+    this.activePoseId = poseId;
     if (!this.initialized || !this.ctx || this.isMuted) return;
 
     const now = this.ctx.currentTime;
     if (this.isIdle) {
       // In idle showroom mode: gently lower camera air noise and widen studio ambience
       this.buses.camera.gain.setTargetAtTime(0.0, now, 0.3);
+      this.buses.ambience.gain.setTargetAtTime(0.78, now, 0.4);
 
-      const distanceTier = telemetry?.distanceTier || 'MEDIUM';
-      const energy = telemetry?.energy || 'CALM';
-      const isStatic = !!telemetry?.isStatic;
-
-      if (distanceTier === 'EXTREME_MACRO') {
-        // Intimate macro audio: boost mechanical nuance, tighten room reverb
+      // Macro pose adjustments
+      if (poseId === 'headlight-macro' || poseId === 'wheel-macro') {
         this.buses.mechanical.gain.setTargetAtTime(0.92, now, 0.3);
-        this.buses.ambience.gain.setTargetAtTime(0.55, now, 0.4);
-      } else if (distanceTier === 'EXTREME_WIDE') {
-        // Wide architectural environment: expansive studio reverb
-        this.buses.mechanical.gain.setTargetAtTime(0.20, now, 0.3);
-        this.buses.ambience.gain.setTargetAtTime(0.85, now, 0.4);
       } else {
-        // Standard medium/close stance
         this.buses.mechanical.gain.setTargetAtTime(AUDIO_BUSES.mechanical.nominalGain, now, 0.3);
-        this.buses.ambience.gain.setTargetAtTime(0.72, now, 0.4);
-      }
-
-      // Movement energy subtle layer
-      if (energy === 'DRAMATIC' && !isStatic) {
-        this.buses.vehicle.gain.setTargetAtTime(0.72, now, 0.25);
-      } else if (isStatic) {
-        this.buses.vehicle.gain.setTargetAtTime(0.35, now, 0.3);
       }
     } else {
       // Restored from idle
       this.buses.ambience.gain.setTargetAtTime(AUDIO_BUSES.ambience.nominalGain, now, 0.2);
-      this.buses.mechanical.gain.setTargetAtTime(AUDIO_BUSES.mechanical.nominalGain, now, 0.2);
     }
   }
 
@@ -516,10 +498,8 @@ class CinematicAudioEngine {
     const v = Math.min(Math.abs(velocity || 0), 2.5);
     const now = this.ctx.currentTime;
 
-    if (options.isIdle !== undefined) {
-      if (options.isIdle !== this.isIdle || options.idleTelemetry !== this.idleTelemetry) {
-        this.setIdleState(options.isIdle, options.idleTelemetry);
-      }
+    if (options.isIdle !== undefined && options.isIdle !== this.isIdle) {
+      this.setIdleState(options.isIdle);
     }
 
     // Determine State

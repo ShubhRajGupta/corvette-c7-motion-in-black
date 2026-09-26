@@ -68,16 +68,16 @@ export function CinematicCamera({
     };
   }, []);
 
-  // Idle cinematic camera sequence manager (Virtual Automotive Cinematographer)
-  const { updateIdleCamera, isIdleActive, telemetry } = useIdleCinematicCamera({
+  // Idle cinematic camera sequence manager
+  const { updateIdleCamera, isIdleActive } = useIdleCinematicCamera({
     isExploreMode,
     isDossierOpen,
   });
 
-  // Notify parent of idle state and director telemetry changes safely in useEffect
+  // Notify parent of idle state changes safely in useEffect
   useEffect(() => {
-    onIdleStateChange?.(isIdleActive, telemetry);
-  }, [isIdleActive, telemetry, onIdleStateChange]);
+    onIdleStateChange?.(isIdleActive);
+  }, [isIdleActive, onIdleStateChange]);
 
   useFrame((state, delta) => {
     if (isExploreMode) {

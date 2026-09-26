@@ -18,12 +18,7 @@ import { MaskedText } from './typography/MaskedText';
  * - Scroll-synchronized parallax and entrance/exit relaxation.
  * - Never fills every blue area simultaneously; distinct moments highlight distinct quadrants.
  */
-export function CinematicOverlay({
-  timelineProgress,
-  fontMode = 'barlow',
-  isIdle = false,
-  idleTelemetry = null,
-}) {
+export function CinematicOverlay({ timelineProgress, fontMode = 'barlow', isIdle = false }) {
   const p = timelineProgress;
 
   return (
@@ -31,33 +26,6 @@ export function CinematicOverlay({
       className={`editorial-layer font-mode-${fontMode} ${isIdle ? 'is-idle' : ''}`}
       aria-live="polite"
     >
-      {/* =========================================================================
-          AUTONOMOUS CINEMATIC SCREENSAVER TYPOGRAPHY LAYER (Requirement 69)
-          Synchronized dynamically to shot energy:
-          - CALM / Static: Zero text (photographic stillness)
-          - LOW / MEDIUM: Minimal photographic metadata stamp
-          - DRAMATIC: Monumental cinematic title in negative space
-          ========================================================================= */}
-      {isIdle && idleTelemetry && (
-        <div className="screensaver-telemetry-layer" key={idleTelemetry.shotId}>
-          {idleTelemetry.energy === 'DRAMATIC' ? (
-            <div className="comp-zone comp-zone-tl screensaver-dramatic-hero">
-              <span className="comp-kicker comp-kicker-accent">
-                CINEMATIC CAPTURE // {idleTelemetry.focalLength}
-              </span>
-              <h1 className="comp-hero-title">CORVETTE</h1>
-              <p className="comp-subtext">
-                {idleTelemetry.targetName.toUpperCase()} // AUTONOMOUS DIRECTOR
-              </p>
-            </div>
-          ) : idleTelemetry.energy === 'CALM' && idleTelemetry.isStatic ? null : (
-            <div className="screensaver-corner-stamp">
-              <span className="stamp-kicker">CINEMATOGRAPHER // {idleTelemetry.focalLength}</span>
-              <span className="stamp-title">{idleTelemetry.name}</span>
-            </div>
-          )}
-        </div>
-      )}
       {/* =========================================================================
           MOMENT 01: ARRIVAL & MONOGRAPH (0.01 -> 0.16, peak ~0.08)
           ZONE: TOP-LEFT BLUE AREA (Above front hood/fender)
