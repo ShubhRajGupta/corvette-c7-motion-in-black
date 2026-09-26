@@ -3,7 +3,6 @@ import { Experience } from './components/Experience';
 import { CinematicOverlay } from './components/CinematicOverlay';
 import { CinematicNav } from './components/CinematicNav';
 import { CinematicPreloader } from './components/CinematicPreloader';
-import { CustomCursor } from './components/CustomCursor';
 import { TechnicalDossier } from './components/TechnicalDossier';
 import { SideSpecSelector } from './components/SideSpecSelector';
 import { TextureOverlay } from './components/TextureOverlay';
@@ -207,9 +206,6 @@ function App() {
         grainEnabled={vfxSettings.grain}
         exposureShiftEnabled={vfxSettings.exposureShift}
       />
-
-      {/* Custom Minimal Cursor */}
-      <CustomCursor />
 
       {/* WebGL 3D Real-time Protagonist Experience */}
       <Experience
