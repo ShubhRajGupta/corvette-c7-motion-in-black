@@ -71,29 +71,54 @@ html, body {
   pointer-events: auto;
 }
 
-/* Film Grain Overlay */
-.film-grain {
+/* Dynamic Organic 35mm Film Grain & Texture System */
+.cinematic-texture-system {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
   z-index: 20;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Subtle Crimson Vignette & Atmospheric Depth */
-.vignette-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.film-grain-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  mix-blend-mode: overlay;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Photographic Vignette (Natural corner falloff directing gaze to car & type) */
+.photographic-vignette {
+  position: absolute;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 10;
-  background: radial-gradient(circle at 50% 50%, transparent 35%, rgba(20, 2, 4, 0.35) 72%, rgba(4, 1, 2, 0.88) 100%);
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 38%,
+    rgba(14, 4, 7, 0.35) 70%,
+    rgba(4, 2, 4, 0.92) 100%
+  );
+}
+
+/* Micro-luminance Atmospheric Bed (Photographic deep black tone) */
+.atmospheric-luminance-bed {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 38%,
+    rgba(255, 30, 39, 0.025) 0%,
+    transparent 68%
+  );
 }
 
 /* Elongated Cinematic Scroll track (spacious film scrub depth) */
@@ -418,11 +443,12 @@ html, body {
   gap: 8px;
 }
 
-/* Center Editorial Content Overlays */
+/* =========================================================================
+   CINEMATIC EDITORIAL LAYER & STORYBOARD TYPOGRAPHY
+   ========================================================================= */
 .editorial-layer {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
@@ -432,7 +458,20 @@ html, body {
   align-items: center;
 }
 
-/* Monumental Typography Components */
+.scene-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Master Monumental Typography */
 .monumental-word {
   font-family: var(--font-display);
   font-size: clamp(4.5rem, 16vw, 19rem);
@@ -440,143 +479,401 @@ html, body {
   line-height: 0.85;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: var(--text-white);
+  color: #f7f7fa;
   text-align: center;
-  transition: opacity 0.5s ease, transform 0.6s var(--ease-cinematic);
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   white-space: nowrap;
+  user-select: none;
 }
 
-.monumental-word.depth-behind {
-  color: rgba(240, 240, 245, 0.85);
-  text-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+.frosted-letter-texture {
+  text-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.9),
+    0 0 1px rgba(255, 255, 255, 0.25);
 }
 
-.monumental-word.stroked {
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.4);
-  color: transparent;
+.single-word-hero {
+  font-size: clamp(6.5rem, 24vw, 28rem);
+  letter-spacing: -0.04em;
+  color: #ffffff;
 }
 
-.editorial-statement {
-  display: flex;
-  flex-direction: column;
+/* Micro-temporal letter separation */
+.split-word-container {
+  will-change: transform, opacity, filter;
+}
+
+.split-letter {
+  display: inline-block;
+  transform-origin: center center;
+}
+
+/* Masked geometric reveals */
+.masked-text-wrapper {
+  overflow: visible;
+  display: inline-flex;
   align-items: center;
-  text-align: center;
-  gap: 16px;
+  justify-content: center;
 }
 
+/* Editorial Kicker & Sub Copy */
 .editorial-kicker {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--accent-red);
-}
-
-.editorial-headline {
   font-family: var(--font-condensed);
-  font-size: clamp(2.5rem, 7vw, 7rem);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-white);
-}
-
-.editorial-sub {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 300;
-  letter-spacing: 0.25em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  max-width: 420px;
-}
-
-/* Performance Spec Numbers */
-.spec-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  text-align: center;
-}
-
-@media (max-width: 1024px) {
-  .spec-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-  }
-}
-
-@media (max-width: 600px) {
-  .spec-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-.spec-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.spec-value {
-  font-family: var(--font-display);
-  font-size: clamp(3.2rem, 7.5vw, 8.5rem);
-  font-weight: 900;
-  line-height: 0.85;
-  letter-spacing: -0.02em;
-  color: var(--text-white);
-}
-
-.spec-value.highlight {
-  color: var(--accent-red);
-}
-
-.spec-unit {
-  font-family: var(--font-body);
   font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--accent-red);
 }
 
-.spec-desc {
-  font-family: var(--font-body);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.spec-secondary-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  padding: 8px 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.bar-divider {
+.kicker-red {
   color: var(--accent-red);
 }
 
-.editorial-footnote {
+.kicker-finale {
+  color: var(--accent-red);
+  letter-spacing: 0.4em;
+}
+
+.editorial-sub {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  max-width: 440px;
+  margin-top: 10px;
+}
+
+/* Scene 01: Arrival Quiet Micro Tag */
+.editorial-micro-quiet {
+  position: absolute;
+  top: 110px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.editorial-tag-dim {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.editorial-tag-accent {
+  font-family: var(--font-condensed);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #a1a1aa;
+  text-transform: uppercase;
+}
+
+/* Scene 02: Spaceframe Fact beneath Corvette */
+.editorial-sub-fact {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.fact-kicker {
+  font-family: var(--font-condensed);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--accent-red);
+}
+
+.fact-copy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--text-white);
+  text-transform: uppercase;
+}
+
+/* Scene 03: Form Sub Label */
+.editorial-sub-label {
   font-family: var(--font-body);
   font-size: 10px;
   letter-spacing: 0.32em;
+  color: var(--text-dim);
+  margin-top: 10px;
   text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+/* Scene 04: Close-Up / Stance Micro Typography */
+.editorial-micro-stance {
+  position: absolute;
+  top: 110px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 4px;
+}
+
+.micro-tag {
+  font-family: var(--font-condensed);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
   color: var(--accent-red);
+}
+
+.micro-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5.5vw, 4.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.micro-specs-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.dot-sep {
+  color: var(--accent-red);
+}
+
+/* Scene 05: Headlight Optical Sharpness */
+.headlight-optical-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  width: 88%;
+  max-width: 1100px;
+}
+
+.monumental-optical-word {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 16vw, 18rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 50px rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+.editorial-sub-technical {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  margin-top: 10px;
+  max-width: 520px;
+  text-transform: uppercase;
+}
+
+/* Scene 06: Dual-Word Morph */
+.morph-pair-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.morph-word {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 22vw, 26rem);
+  font-weight: 900;
+  line-height: 0.85;
+  text-align: center;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.morph-word.word-a {
+  color: #f0f0f5;
+}
+
+.morph-word.word-b {
+  color: #ffffff;
+  text-shadow: 0 0 50px rgba(255, 30, 39, 0.35);
+}
+
+/* Scene 07: Monumental Raw Number */
+.monumental-number-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.huge-number-display {
+  font-family: var(--font-display);
+  font-size: clamp(9rem, 34vw, 38rem);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: #ffffff;
+  text-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+}
+
+.number-label-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.num-unit {
+  font-family: var(--font-condensed);
+  font-size: clamp(14px, 2vw, 22px);
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  color: var(--accent-red);
+  text-transform: uppercase;
+}
+
+.num-secondary-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Scene 08: Exhaust Intensity */
+.exhaust-editorial-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.word-exhaust {
+  font-size: clamp(4.5rem, 17vw, 20rem);
+  color: #f4f4f8;
+  text-shadow: 0 10px 40px rgba(255, 10, 20, 0.4);
+}
+
+/* Scene 09: Silence & Photographic Pause */
+.editorial-silence-pause {
+  position: absolute;
+  bottom: 120px;
+  left: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.silence-dot {
+  color: var(--accent-red);
+  font-size: 8px;
+  animation: pulse-ring 2s infinite alternate;
+}
+
+.silence-txt {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Scene 10: Textured Dissolve */
+.textured-dissolve-word {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 18vw, 22rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.25) 100%);
+  text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* Scene 11: Final Reveal Portrait */
+.scene-finale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.finale-monument {
+  font-size: clamp(4.5rem, 16vw, 19rem);
+  line-height: 0.88;
+  color: #f8f8fa;
+}
+
+.finale-sub-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--text-white);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.finale-specs-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 14px;
+}
+
+.finale-prompt {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 18px;
+}
+
+@media (max-width: 768px) {
+  .editorial-micro-quiet {
+    top: 90px;
+    left: 20px;
+  }
+  .editorial-micro-stance {
+    top: 90px;
+    right: 20px;
+  }
+  .editorial-silence-pause {
+    bottom: 90px;
+    left: 20px;
+  }
 }
 
 /* Minimal Loading Screen */

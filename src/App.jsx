@@ -6,6 +6,7 @@ import { CinematicNav } from './components/CinematicNav';
 import { CustomCursor } from './components/CustomCursor';
 import { TechnicalDossier } from './components/TechnicalDossier';
 import { SideSpecSelector } from './components/SideSpecSelector';
+import { TextureOverlay } from './components/TextureOverlay';
 import { CAR_SPECS } from './constants/carSpecs';
 import { STORY_VIEWPOINTS, getNearestViewpoint } from './constants/viewpoints';
 import { cinematicAudio } from './utils/audio';
@@ -248,9 +249,8 @@ function App() {
         </div>
       </div>
 
-      {/* Atmospheric Overlays */}
-      <div className="film-grain" />
-      <div className="vignette-overlay" />
+      {/* Dynamic Organic 35mm Film Grain, Vignette & Texture System */}
+      <TextureOverlay timelineProgress={timelineProgress} />
 
       {/* Custom Minimal Cursor */}
       <CustomCursor />
