@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useProgress } from '@react-three/drei';
 import { Experience } from './components/Experience';
 import { CinematicOverlay } from './components/CinematicOverlay';
 import { CinematicNav } from './components/CinematicNav';
+import { CinematicPreloader } from './components/CinematicPreloader';
 import { CustomCursor } from './components/CustomCursor';
 import { TechnicalDossier } from './components/TechnicalDossier';
 import { SideSpecSelector } from './components/SideSpecSelector';
@@ -10,14 +10,27 @@ import { TextureOverlay } from './components/TextureOverlay';
 import { VfxDebugPanel } from './components/vfx/VfxDebugPanel';
 import { CAR_SPECS } from './constants/carSpecs';
 import { cinematicAudio } from './utils/audio';
+import { useLoadingOrchestrator } from './hooks/useLoadingOrchestrator';
 
 function App() {
   const [timelineProgress, setTimelineProgress] = useState(0);
   const [isExploreMode, setIsExploreMode] = useState(false);
   const [isDossierOpen, setIsDossierOpen] = useState(false);
   const [isIdle, setIsIdle] = useState(false);
+  const [showLoadStats, setShowLoadStats] = useState(false);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Intelligent Weighted Loading Orchestrator
+  const {
+    stage: loadStage,
+    displayProgress,
+    statusMessage,
+    isCriticalReady,
+    isExperienceReady,
+    reportSceneAttached,
+    reportShadersPrewarmed,
+    telemetry: loadTelemetry,
+  } = useLoadingOrchestrator();
 
   // Active Curated Edition & Livery state
   const [activeSpecId, setActiveSpecId] = useState('velocity-yellow');
@@ -70,28 +83,25 @@ function App() {
     setActiveStickerId(stickerId);
   };
 
-  // Asset loading tracker from Drei
-  const { progress: assetProgress, active } = useProgress();
-
   const currentProgressRef = useRef(0);
   const targetProgressRef = useRef(0);
   const mouseTargetRef = useRef({ x: 0, y: 0 });
   const mouseCurrentRef = useRef({ x: 0, y: 0 });
+  const isIdleRef = useRef(isIdle);
+  const isExploreModeRef = useRef(isExploreMode);
+  const isExperienceReadyRef = useRef(isExperienceReady);
 
-  // Handle loading completion with natural transition
   useEffect(() => {
-    if (assetProgress >= 100 || !active) {
-      const timer = setTimeout(() => {
-        setIsLoaded(true);
-      }, 700);
-      return () => clearTimeout(timer);
-    }
-  }, [assetProgress, active]);
+    isIdleRef.current = isIdle;
+    isExploreModeRef.current = isExploreMode;
+    isExperienceReadyRef.current = isExperienceReady;
+  }, [isIdle, isExploreMode, isExperienceReady]);
 
   // Master smooth scroll scrubber loop with physical inertia
   useEffect(() => {
     const handleScroll = () => {
-      if (isExploreMode) return;
+      // Gated until experience reaches critical readiness to preserve Scene 01 prewarm composition
+      if (isExploreMode || !isExperienceReadyRef.current) return;
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll > 0) {
@@ -119,7 +129,10 @@ function App() {
 
       // Update audio timeline state for dynamic pitch, lope, intensity curve & spatial panner
       const velocity = Math.abs(currentProgressRef.current - lastProgress) * 60;
-      cinematicAudio.update(currentProgressRef.current, velocity);
+      cinematicAudio.update(currentProgressRef.current, velocity, {
+        isIdle: isIdleRef.current,
+        isExploreMode: isExploreModeRef.current,
+      });
       lastProgress = currentProgressRef.current;
 
       setTimelineProgress(currentProgressRef.current);
@@ -163,6 +176,9 @@ function App() {
           top: prevProgress * maxScroll,
           behavior: 'smooth',
         });
+      } else if (e.shiftKey && (e.key === 'L' || e.key === 'l')) {
+        // Toggle development loading telemetry diagnostics
+        setShowLoadStats((prev) => !prev);
       }
     };
 
@@ -177,19 +193,13 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Editorial Minimal Loading Screen */}
-      <div className={`cinematic-loader ${isLoaded ? 'fade-out' : ''}`}>
-        <div className="loader-title">CORVETTE</div>
-        <div className="loader-bar-wrap">
-          <div
-            className="loader-bar-fill"
-            style={{ width: `${Math.round(assetProgress)}%` }}
-          />
-        </div>
-        <div className="loader-meta">
-          MOTION IN BLACK // {Math.round(assetProgress)}%
-        </div>
-      </div>
+      {/* Cinematic Automotive Prologue & Progressive Assembly Preloader */}
+      <CinematicPreloader
+        displayProgress={displayProgress}
+        statusMessage={statusMessage}
+        isCriticalReady={isCriticalReady}
+        isExperienceReady={isExperienceReady}
+      />
 
       {/* Dynamic Organic 35mm Film Grain, Vignette, Texture & Exposure Shift System */}
       <TextureOverlay
@@ -211,7 +221,40 @@ function App() {
         vfxSettings={vfxSettings}
         isDossierOpen={isDossierOpen}
         onIdleStateChange={setIsIdle}
+        onSceneAttached={reportSceneAttached}
+        onShadersPrewarmed={reportShadersPrewarmed}
       />
+
+      {/* Development Diagnostics for Loading Telemetry (Shift + L) */}
+      {showLoadStats && (
+        <div className="preloader-dev-diagnostics">
+          <div className="preloader-dev-title">CORVETTE // LOAD METRICS</div>
+          <div className="preloader-dev-row">
+            <span>Stage:</span>
+            <span>{loadStage}</span>
+          </div>
+          <div className="preloader-dev-row">
+            <span>Time to Shell:</span>
+            <span>{loadTelemetry.timeToShell}ms</span>
+          </div>
+          <div className="preloader-dev-row">
+            <span>Time to Assets:</span>
+            <span>{loadTelemetry.timeToAssets}ms</span>
+          </div>
+          <div className="preloader-dev-row">
+            <span>Time to Prewarm:</span>
+            <span>{loadTelemetry.timeToPrewarm}ms</span>
+          </div>
+          <div className="preloader-dev-row">
+            <span>Time to Ready:</span>
+            <span>{loadTelemetry.timeToCriticalReady}ms</span>
+          </div>
+          <div className="preloader-dev-row">
+            <span>Total Prologue:</span>
+            <span>{loadTelemetry.totalDuration}ms</span>
+          </div>
+        </div>
+      )}
 
       {/* Development Diagnostics for Isolated VFX Tuning (Shift + V) */}
       <VfxDebugPanel

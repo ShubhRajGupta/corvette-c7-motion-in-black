@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import { CarModel } from './CarModel';
@@ -9,6 +9,7 @@ import { PostProcessingEffects } from './PostProcessingEffects';
 import { StudioAtmosphere } from './vfx/StudioAtmosphere';
 import { OpticalDiffusion } from './vfx/OpticalDiffusion';
 import { CircularStudio } from './studio/CircularStudio';
+import { ScenePrewarmer } from './ScenePrewarmer';
 
 export function Experience({
   timelineProgress,
@@ -19,7 +20,13 @@ export function Experience({
   vfxSettings,
   isDossierOpen,
   onIdleStateChange,
+  onSceneAttached,
+  onShadersPrewarmed,
 }) {
+  useEffect(() => {
+    onSceneAttached?.();
+  }, [onSceneAttached]);
+
   return (
     <div className={`webgl-viewport ${isExploreMode ? 'interactive' : ''}`}>
       <Canvas
@@ -38,6 +45,9 @@ export function Experience({
         <fog attach="fog" args={['#040203', 6, 26]} />
 
         <Suspense fallback={null}>
+          {/* Prewarm GPU shaders and render pipelines before preloader dissolves */}
+          <ScenePrewarmer onPrewarmed={onShadersPrewarmed} />
+
           {/* Choreographed Cinematic Camera */}
           <CinematicCamera
             timelineProgress={timelineProgress}
