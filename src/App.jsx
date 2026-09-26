@@ -7,6 +7,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { TechnicalDossier } from './components/TechnicalDossier';
 import { SideSpecSelector } from './components/SideSpecSelector';
 import { TextureOverlay } from './components/TextureOverlay';
+import { VfxDebugPanel } from './components/vfx/VfxDebugPanel';
 import { CAR_SPECS } from './constants/carSpecs';
 import { STORY_VIEWPOINTS, getNearestViewpoint } from './constants/viewpoints';
 import { cinematicAudio } from './utils/audio';
@@ -21,6 +22,17 @@ function App() {
   // Active Curated Edition & Livery state
   const [activeSpecId, setActiveSpecId] = useState('velocity-yellow');
   const [activeStickerId, setActiveStickerId] = useState('jake');
+
+  // VFX & Atmosphere Diagnostic Controls (Shift + V)
+  const [vfxSettings, setVfxSettings] = useState({
+    atmosphere: true,
+    particles: true,
+    optical: true,
+    bloom: true,
+    chromatic: true,
+    grain: true,
+    exposureShift: true,
+  });
 
   // Magnetic Viewpoint Lock state
   const [activeViewpoint, setActiveViewpoint] = useState(STORY_VIEWPOINTS[0]);
@@ -249,8 +261,12 @@ function App() {
         </div>
       </div>
 
-      {/* Dynamic Organic 35mm Film Grain, Vignette & Texture System */}
-      <TextureOverlay timelineProgress={timelineProgress} />
+      {/* Dynamic Organic 35mm Film Grain, Vignette, Texture & Exposure Shift System */}
+      <TextureOverlay
+        timelineProgress={timelineProgress}
+        grainEnabled={vfxSettings.grain}
+        exposureShiftEnabled={vfxSettings.exposureShift}
+      />
 
       {/* Custom Minimal Cursor */}
       <CustomCursor />
@@ -262,6 +278,13 @@ function App() {
         mouseOffset={mouseOffset}
         currentSpec={currentSpec}
         activeStickerId={activeStickerId}
+        vfxSettings={vfxSettings}
+      />
+
+      {/* Development Diagnostics for Isolated VFX Tuning (Shift + V) */}
+      <VfxDebugPanel
+        vfxSettings={vfxSettings}
+        onUpdateVfxSettings={setVfxSettings}
       />
 
       {/* Synchronized Monumental Editorial Typography Overlay */}

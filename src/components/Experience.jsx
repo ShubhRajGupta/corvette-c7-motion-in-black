@@ -6,6 +6,9 @@ import { StudioEnvironment } from './StudioEnvironment';
 import { CinematicCamera } from './CinematicCamera';
 import { SpatialTypography } from './SpatialTypography';
 import { PostProcessingEffects } from './PostProcessingEffects';
+import { StudioAtmosphere } from './vfx/StudioAtmosphere';
+import { AirborneDust } from './vfx/AirborneDust';
+import { OpticalDiffusion } from './vfx/OpticalDiffusion';
 
 export function Experience({
   timelineProgress,
@@ -13,6 +16,7 @@ export function Experience({
   mouseOffset,
   currentSpec,
   activeStickerId,
+  vfxSettings,
 }) {
   return (
     <div className={`webgl-viewport ${isExploreMode ? 'interactive' : ''}`}>
@@ -46,6 +50,27 @@ export function Experience({
             currentSpec={currentSpec}
           />
 
+          {/* Subordinate Cinematic Atmospheric Effects & Ground Haze */}
+          {vfxSettings?.atmosphere !== false && (
+            <StudioAtmosphere
+              timelineProgress={timelineProgress}
+              currentSpec={currentSpec}
+            />
+          )}
+
+          {/* Microscopic Suspended Studio Dust Particles */}
+          {vfxSettings?.particles !== false && (
+            <AirborneDust timelineProgress={timelineProgress} />
+          )}
+
+          {/* Restrained Optical Diffusion, Projector Glow & Anamorphic Flare */}
+          {vfxSettings?.optical !== false && (
+            <OpticalDiffusion
+              timelineProgress={timelineProgress}
+              currentSpec={currentSpec}
+            />
+          )}
+
           {/* Chevrolet Corvette C7 Physical Asset */}
           <CarModel
             timelineProgress={timelineProgress}
@@ -58,8 +83,12 @@ export function Experience({
           {/* In-Scene 3D Spatial Typography with Chassis Occlusion */}
           <SpatialTypography timelineProgress={timelineProgress} />
 
-          {/* Restrained Bloom & Tone Processing */}
-          <PostProcessingEffects timelineProgress={timelineProgress} />
+          {/* Restrained Bloom & Chromatic Aberration Post Processing */}
+          <PostProcessingEffects
+            timelineProgress={timelineProgress}
+            bloomEnabled={vfxSettings?.bloom !== false}
+            chromaticEnabled={vfxSettings?.chromatic !== false}
+          />
         </Suspense>
       </Canvas>
     </div>

@@ -121,6 +121,24 @@ html, body {
   );
 }
 
+/* Optical Exposure Shift & Light Sweep adaptation */
+.optical-exposure-shift {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 40% 52%,
+    rgba(255, 252, 245, 0.45) 0%,
+    rgba(215, 235, 255, 0.15) 45%,
+    transparent 75%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease-out;
+}
+
+
 /* Elongated Cinematic Scroll track (spacious film scrub depth) */
 .scroll-track {
   position: relative;
@@ -1600,4 +1618,127 @@ html, body {
     width: 240px;
   }
 }
+
+/* VFX Diagnostics & Dev Debug Panel (Shift + V) */
+.vfx-debug-panel {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  width: 280px;
+  background: rgba(8, 9, 12, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 16px;
+  z-index: 1000;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-mono);
+  color: #d8dde6;
+  user-select: none;
+}
+
+.vfx-debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.vfx-debug-badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ff2233;
+  text-transform: uppercase;
+}
+
+.vfx-debug-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.vfx-debug-close:hover {
+  color: #fff;
+}
+
+.vfx-debug-title {
+  font-family: var(--font-condensed);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.vfx-debug-caption {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 12px;
+}
+
+.vfx-master-toggle {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-condensed);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.vfx-master-toggle.active {
+  background: rgba(255, 34, 51, 0.16);
+  border-color: rgba(255, 34, 51, 0.5);
+  color: #ff3344;
+}
+
+.vfx-master-toggle.inactive {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.vfx-toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vfx-toggle-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.15s ease;
+}
+
+.vfx-toggle-item:hover {
+  color: #fff;
+}
+
+.vfx-toggle-item input[type='checkbox'] {
+  accent-color: #ff2233;
+  cursor: pointer;
+}
+
+.vfx-debug-footer {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+}
+
 

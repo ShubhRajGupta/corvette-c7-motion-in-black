@@ -2,9 +2,13 @@ import React, { useEffect, useRef } from 'react';
 
 /**
  * TextureOverlay: Provides organic 35mm film emulsion grain, temporal variation,
- * and photographic vignette. Grain intensity subtly modulates based on timeline transitions.
+ * photographic vignette, and subtle camera sensor exposure adaptation.
  */
-export function TextureOverlay({ timelineProgress }) {
+export function TextureOverlay({
+  timelineProgress,
+  grainEnabled = true,
+  exposureShiftEnabled = true,
+}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -13,7 +17,7 @@ export function TextureOverlay({ timelineProgress }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Use a lightweight 200x200 grain tile scaled to viewport via CSS
+    // Use a lightweight 180x180 grain tile scaled to viewport via CSS
     const size = 180;
     canvas.width = size;
     canvas.height = size;
@@ -67,6 +71,24 @@ export function TextureOverlay({ timelineProgress }) {
     dynamicGrainOpacity = 0.032; // Pristine calm during PURE FORM
   }
 
+  if (!grainEnabled) {
+    dynamicGrainOpacity = 0;
+  }
+
+  // Optical Camera Sensor Exposure Shift & Light Sweep:
+  // Approaching headlight (0.52 -> 0.55): exposure slightly increases
+  // Headlight transition sweep (0.55 -> 0.58): brief subtle peak
+  // Settles back smoothly (0.58 -> 0.61)
+  // Experimental transition (0.92 -> 0.96): subtle exposure breathe
+  let exposureShiftOpacity = 0;
+  if (exposureShiftEnabled) {
+    if (p >= 0.52 && p <= 0.61) {
+      exposureShiftOpacity = Math.sin(((p - 0.52) / 0.09) * Math.PI) * 0.18;
+    } else if (p >= 0.92 && p <= 0.96) {
+      exposureShiftOpacity = Math.sin(((p - 0.92) / 0.04) * Math.PI) * 0.08;
+    }
+  }
+
   return (
     <div className="cinematic-texture-system" aria-hidden="true">
       {/* 1. Animated Organic 35mm Film Grain Canvas */}
@@ -84,6 +106,14 @@ export function TextureOverlay({ timelineProgress }) {
 
       {/* 3. Micro-luminance Atmospheric Bed (Replaces sterile 0,0,0 with photographic black) */}
       <div className="atmospheric-luminance-bed" />
+
+      {/* 4. Optical Exposure Shift & Light Sweep Adaptation */}
+      <div
+        className="optical-exposure-shift"
+        style={{
+          opacity: exposureShiftOpacity,
+        }}
+      />
     </div>
   );
 }
