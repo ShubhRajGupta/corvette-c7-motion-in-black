@@ -1,7 +1,11 @@
 node_modules
-models/
+dist
 .git
 .agents
 wiki/
 docs/
 scripts/
+/models/
+*corvette_c7_opt.glb
+*corvette_c7_draco.glb
+
