@@ -6,21 +6,22 @@ import * as THREE from 'three';
 export function SpatialTypography({ timelineProgress }) {
   const textGroupRef = useRef();
   const corvetteTextRef = useRef();
+  const text360Ref = useRef();
   const finaleTextRef = useRef();
 
   useFrame(() => {
     const p = timelineProgress;
 
-    // 1. Opening scene (0.18 -> 0.38): Massive "CORVETTE" behind vehicle
+    // 1. Opening scene (0.17 -> 0.36): Massive "CORVETTE" behind vehicle
     if (corvetteTextRef.current) {
       let opacity = 0;
-      if (p >= 0.17 && p <= 0.38) {
-        if (p < 0.23) {
-          opacity = (p - 0.17) / 0.06;
-        } else if (p <= 0.32) {
+      if (p >= 0.16 && p <= 0.36) {
+        if (p < 0.22) {
+          opacity = (p - 0.16) / 0.06;
+        } else if (p <= 0.30) {
           opacity = 1.0;
         } else {
-          opacity = 1.0 - (p - 0.32) / 0.06;
+          opacity = 1.0 - (p - 0.30) / 0.06;
         }
       }
       corvetteTextRef.current.material.opacity = THREE.MathUtils.lerp(
@@ -29,10 +30,33 @@ export function SpatialTypography({ timelineProgress }) {
         0.15
       );
       // Subtle depth drift
-      corvetteTextRef.current.position.y = 1.25 + (p - 0.25) * 0.4;
+      corvetteTextRef.current.position.y = 1.25 + (p - 0.25) * 0.35;
     }
 
-    // 2. Finale scene (0.90 -> 1.00): Monumental backdrop
+    // 2. 360° Studio Sequence (0.37 -> 0.72): Monumental "360°" occluded by car chassis
+    if (text360Ref.current) {
+      let opacity360 = 0;
+      if (p >= 0.37 && p <= 0.72) {
+        if (p < 0.43) {
+          opacity360 = (p - 0.37) / 0.06;
+        } else if (p <= 0.65) {
+          opacity360 = 1.0;
+        } else {
+          opacity360 = 1.0 - (p - 0.65) / 0.07;
+        }
+      }
+      text360Ref.current.material.opacity = THREE.MathUtils.lerp(
+        text360Ref.current.material.opacity,
+        opacity360,
+        0.15
+      );
+
+      // Deep photographic parallax: shifts as the camera traverses the circular orbit
+      text360Ref.current.position.x = 0.25 + (p - 0.52) * 0.8;
+      text360Ref.current.position.y = 1.45 - (p - 0.52) * 0.2;
+    }
+
+    // 3. Finale scene (0.90 -> 1.00): Monumental backdrop
     if (finaleTextRef.current) {
       let finaleOpacity = 0;
       if (p >= 0.90) {
@@ -67,6 +91,28 @@ export function SpatialTypography({ timelineProgress }) {
           opacity={0}
           depthWrite={false}
           color="#f0f2f8"
+        />
+      </Text>
+
+      {/* Scene 2: Monumental "360°" in-scene typography with physical vehicle occlusion */}
+      <Text
+        ref={text360Ref}
+        position={[0.25, 1.45, 2.2]}
+        rotation={[0, -0.12, 0]}
+        fontSize={2.2}
+        letterSpacing={0.06}
+        color="#edf2fa"
+        anchorX="center"
+        anchorY="middle"
+        renderOrder={1}
+      >
+        360°
+        <meshBasicMaterial
+          attach="material"
+          transparent
+          opacity={0}
+          depthWrite={false}
+          color="#edf2fa"
         />
       </Text>
 

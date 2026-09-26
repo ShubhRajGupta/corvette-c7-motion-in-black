@@ -9,6 +9,7 @@ import { PostProcessingEffects } from './PostProcessingEffects';
 import { StudioAtmosphere } from './vfx/StudioAtmosphere';
 import { AirborneDust } from './vfx/AirborneDust';
 import { OpticalDiffusion } from './vfx/OpticalDiffusion';
+import { CircularStudio } from './studio/CircularStudio';
 
 export function Experience({
   timelineProgress,
@@ -33,7 +34,7 @@ export function Experience({
         dpr={[1, 2]}
       >
         <color attach="background" args={['#040203']} />
-        <fog attach="fog" args={['#040203', 5, 22]} />
+        <fog attach="fog" args={['#040203', 6, 26]} />
 
         <Suspense fallback={null}>
           {/* Choreographed Cinematic Camera */}
@@ -47,6 +48,12 @@ export function Experience({
           <StudioEnvironment
             timelineProgress={timelineProgress}
             mouseOffset={mouseOffset}
+            currentSpec={currentSpec}
+          />
+
+          {/* 360° Circular Modification & Detailing Studio Stage */}
+          <CircularStudio
+            timelineProgress={timelineProgress}
             currentSpec={currentSpec}
           />
 
