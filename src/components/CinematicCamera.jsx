@@ -1,7 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { useIdleCinematicCamera } from '../hooks/useIdleCinematicCamera';
 
 // Technocrane automotive cinema flight path (dramatic elevations, ultra-low ground skimmers, macro dives)
 const CAMERA_POINTS = [
@@ -48,7 +49,13 @@ const LENS_DATA = [
   { p: 1.00, fov: 36, roll: 0.000 },  // Final level horizon
 ];
 
-export function CinematicCamera({ timelineProgress, isExploreMode, mouseOffset }) {
+export function CinematicCamera({
+  timelineProgress,
+  isExploreMode,
+  mouseOffset,
+  isDossierOpen = false,
+  onIdleStateChange,
+}) {
   const currentTargetRef = useRef(new THREE.Vector3(0, 0.6, 0));
   const currentRollRef = useRef(0);
   const controlsRef = useRef();
@@ -61,6 +68,17 @@ export function CinematicCamera({ timelineProgress, isExploreMode, mouseOffset }
     };
   }, []);
 
+  // Idle cinematic camera sequence manager
+  const { updateIdleCamera, isIdleActive } = useIdleCinematicCamera({
+    isExploreMode,
+    isDossierOpen,
+  });
+
+  // Notify parent of idle state changes safely in useEffect
+  useEffect(() => {
+    onIdleStateChange?.(isIdleActive);
+  }, [isIdleActive, onIdleStateChange]);
+
   useFrame((state, delta) => {
     if (isExploreMode) {
       // In manual explore mode, OrbitControls takes full control
@@ -70,39 +88,83 @@ export function CinematicCamera({ timelineProgress, isExploreMode, mouseOffset }
     const { camera } = state;
     const clampedProgress = Math.max(0, Math.min(1, timelineProgress));
 
-    // Sample continuous, seamless C1 spline points
+    // Sample continuous, seamless C1 spline points from interactive timeline
     const rawPos = cameraCurve.getPointAt(clampedProgress);
     const rawTarget = targetCurve.getPointAt(clampedProgress);
 
-    // Calculate lens FOV and camera banking roll
-    let targetFov = LENS_DATA[0].fov;
-    let targetRoll = LENS_DATA[0].roll;
+    // Calculate lens FOV and camera banking roll along timeline
+    let timelineFov = LENS_DATA[0].fov;
+    let timelineRoll = LENS_DATA[0].roll;
 
     for (let i = 0; i < LENS_DATA.length - 1; i++) {
       if (clampedProgress >= LENS_DATA[i].p && clampedProgress <= LENS_DATA[i + 1].p) {
         const span = LENS_DATA[i + 1].p - LENS_DATA[i].p || 1;
         const t = (clampedProgress - LENS_DATA[i].p) / span;
-        targetFov = THREE.MathUtils.lerp(LENS_DATA[i].fov, LENS_DATA[i + 1].fov, t);
-        targetRoll = THREE.MathUtils.lerp(LENS_DATA[i].roll, LENS_DATA[i + 1].roll, t);
+        timelineFov = THREE.MathUtils.lerp(LENS_DATA[i].fov, LENS_DATA[i + 1].fov, t);
+        timelineRoll = THREE.MathUtils.lerp(LENS_DATA[i].roll, LENS_DATA[i + 1].roll, t);
         break;
       }
     }
 
-    // Subtle fluid cinema camera parallax from mouse
+    // Subtle fluid cinema camera parallax from mouse during active interaction
     const mx = (mouseOffset?.x || 0) * 0.12;
     const my = (mouseOffset?.y || 0) * 0.06;
 
-    const targetPos = new THREE.Vector3(rawPos.x + mx, rawPos.y - my, rawPos.z);
-    const targetLookAt = new THREE.Vector3(rawTarget.x + mx * 0.25, rawTarget.y - my * 0.15, rawTarget.z);
+    const interactivePos = new THREE.Vector3(rawPos.x + mx, rawPos.y - my, rawPos.z);
+    const interactiveTarget = new THREE.Vector3(
+      rawTarget.x + mx * 0.25,
+      rawTarget.y - my * 0.15,
+      rawTarget.z
+    );
+
+    // Query idle showroom camera sequence (auto-blends between 0.0 and 1.0)
+    const {
+      idlePos,
+      idleTarget,
+      idleFov,
+      idleRoll,
+      idleWeight,
+    } = updateIdleCamera(
+      delta,
+      interactivePos,
+      interactiveTarget,
+      timelineFov,
+      timelineRoll
+    );
+
+    // Blend interactive camera with authored idle sequence
+    // When idleWeight is 0, this is 100% exact interactive camera
+    // When idleWeight is 1, this is 100% authored idle showroom film
+    // When user interrupts, idleWeight smoothly and instantly drops to 0
+    const blendedPos = interactivePos.clone().lerp(idlePos, idleWeight);
+    const blendedTarget = interactiveTarget.clone().lerp(idleTarget, idleWeight);
+    const targetFov = THREE.MathUtils.lerp(timelineFov, idleFov, idleWeight);
+    const targetRoll = THREE.MathUtils.lerp(timelineRoll, idleRoll, idleWeight);
 
     // Damped camera movement with smooth physical inertia
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetPos.x, 3.8, delta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetPos.y, 3.8, delta);
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, targetPos.z, 3.8, delta);
+    const posDampSpeed = idleWeight > 0.4 ? 3.0 : 3.8;
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, blendedPos.x, posDampSpeed, delta);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, blendedPos.y, posDampSpeed, delta);
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, blendedPos.z, posDampSpeed, delta);
 
-    currentTargetRef.current.x = THREE.MathUtils.damp(currentTargetRef.current.x, targetLookAt.x, 4.5, delta);
-    currentTargetRef.current.y = THREE.MathUtils.damp(currentTargetRef.current.y, targetLookAt.y, 4.5, delta);
-    currentTargetRef.current.z = THREE.MathUtils.damp(currentTargetRef.current.z, targetLookAt.z, 4.5, delta);
+    currentTargetRef.current.x = THREE.MathUtils.damp(
+      currentTargetRef.current.x,
+      blendedTarget.x,
+      4.5,
+      delta
+    );
+    currentTargetRef.current.y = THREE.MathUtils.damp(
+      currentTargetRef.current.y,
+      blendedTarget.y,
+      4.5,
+      delta
+    );
+    currentTargetRef.current.z = THREE.MathUtils.damp(
+      currentTargetRef.current.z,
+      blendedTarget.z,
+      4.5,
+      delta
+    );
 
     // Aim camera at focus target
     camera.lookAt(currentTargetRef.current);
@@ -115,7 +177,7 @@ export function CinematicCamera({ timelineProgress, isExploreMode, mouseOffset }
 
     // Lens FOV breathing
     if (Math.abs(camera.fov - targetFov) > 0.05) {
-      camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 3.2, delta);
+      camera.fov = THREE.MathUtils.damp(camera.fov, targetFov, 3.0, delta);
       camera.updateProjectionMatrix();
     }
   });

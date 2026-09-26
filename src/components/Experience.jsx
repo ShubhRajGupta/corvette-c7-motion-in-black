@@ -7,7 +7,6 @@ import { CinematicCamera } from './CinematicCamera';
 import { SpatialTypography } from './SpatialTypography';
 import { PostProcessingEffects } from './PostProcessingEffects';
 import { StudioAtmosphere } from './vfx/StudioAtmosphere';
-import { AirborneDust } from './vfx/AirborneDust';
 import { OpticalDiffusion } from './vfx/OpticalDiffusion';
 import { CircularStudio } from './studio/CircularStudio';
 
@@ -18,6 +17,8 @@ export function Experience({
   currentSpec,
   activeStickerId,
   vfxSettings,
+  isDossierOpen,
+  onIdleStateChange,
 }) {
   return (
     <div className={`webgl-viewport ${isExploreMode ? 'interactive' : ''}`}>
@@ -42,6 +43,8 @@ export function Experience({
             timelineProgress={timelineProgress}
             isExploreMode={isExploreMode}
             mouseOffset={mouseOffset}
+            isDossierOpen={isDossierOpen}
+            onIdleStateChange={onIdleStateChange}
           />
 
           {/* Realistic High-Contrast Automotive Studio Lighting */}
@@ -63,11 +66,6 @@ export function Experience({
               timelineProgress={timelineProgress}
               currentSpec={currentSpec}
             />
-          )}
-
-          {/* Microscopic Suspended Studio Dust Particles */}
-          {vfxSettings?.particles !== false && (
-            <AirborneDust timelineProgress={timelineProgress} />
           )}
 
           {/* Restrained Optical Diffusion, Projector Glow & Anamorphic Flare */}

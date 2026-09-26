@@ -1,330 +1,268 @@
 import React from 'react';
-import { SplitWord } from './typography/SplitWord';
 import { MaskedText } from './typography/MaskedText';
-import { MorphPair } from './typography/MorphPair';
 
-export function CinematicOverlay({ timelineProgress }) {
+/**
+ * CinematicOverlay: Compositional Editorial Typography System
+ *
+ * Implements:
+ * - 4 intentional blue-marked compositional areas:
+ *   1. Top-Left (.comp-zone-tl): Above hood/windshield negative space
+ *   2. Top-Right (.comp-zone-tr): Above rear haunch/quarter negative space
+ *   3. Bottom-Left (.comp-zone-bl): Ground plane negative space in front of wheels
+ *   4. Bottom-Floor (.comp-zone-bf): Ground plane negative space under/behind car
+ * - Supports font choice via fontMode:
+ *   - 'barlow': The authentic, original clean condensed editorial font
+ *   - 'shoulders': The monumental display font with tight tracking
+ * - Large bold/condensed typography with strong whitespace.
+ * - Extremely limited wording (1 monumental headline + minimal editorial meta).
+ * - Scroll-synchronized parallax and entrance/exit relaxation.
+ * - Never fills every blue area simultaneously; distinct moments highlight distinct quadrants.
+ */
+export function CinematicOverlay({ timelineProgress, fontMode = 'barlow', isIdle = false }) {
   const p = timelineProgress;
 
   return (
-    <div className="editorial-layer" aria-live="polite">
+    <div
+      className={`editorial-layer font-mode-${fontMode} ${isIdle ? 'is-idle' : ''}`}
+      aria-live="polite"
+    >
       {/* =========================================================================
-          SCENE 01 — ARRIVAL (0.00 -> 0.07)
-          No giant text. Let the image and opening crane shot breathe.
-          Only microscopic, quiet editorial coordinates emerging from darkness.
+          MOMENT 01: ARRIVAL & MONOGRAPH (0.01 -> 0.16, peak ~0.08)
+          ZONE: TOP-LEFT BLUE AREA (Above front hood/fender)
+          Oversized condensed CORVETTE statement in negative space.
           ========================================================================= */}
-      {p >= 0.005 && p <= 0.075 && (
-        <div
-          className="editorial-micro-quiet"
-          style={{
-            opacity: Math.sin(((p - 0.005) / 0.07) * Math.PI),
-            transform: `translate3d(0, ${(1 - Math.sin(((p - 0.005) / 0.07) * Math.PI)) * 12}px, 0)`,
-          }}
-        >
-          <span className="editorial-tag-dim">BOWLING GREEN, KY // LAT 36.9903° N</span>
-          <span className="editorial-tag-accent">HYDROFORMED ALUMINUM SPACEFRAME // MONOGRAPH</span>
-        </div>
-      )}
+      {p >= 0.01 && p <= 0.16 && (
+        (() => {
+          const t = (p - 0.01) / 0.15;
+          const opacity = Math.sin(t * Math.PI);
+          const parallaxY = (p - 0.08) * -50;
 
-      {/* =========================================================================
-          SCENE 02 — REVEAL (0.07 -> 0.22)
-          "CORVETTE" — Enormous.
-          Enters with horizontal drift, slight blur -> sharp, letter-by-letter stagger.
-          Peak hold at 0.14 -> 0.17 with spaceframe factual note.
-          Exit: slowly drifts with expanding tracking into darkness.
-          ========================================================================= */}
-      {p >= 0.07 && p <= 0.22 && (
-        <div className="scene-container scene-reveal">
-          <SplitWord
-            text="CORVETTE"
-            progress={p}
-            start={0.07}
-            peak={0.14}
-            end={0.22}
-            className="monumental-word frosted-letter-texture"
-            direction="horizontal"
-            maxBlur={14}
-            trackingStart={-0.03}
-            trackingEnd={0.07}
-          />
-
-          {/* Supporting spaceframe editorial fact revealed beneath */}
-          {p >= 0.11 && p <= 0.20 && (
+          return (
             <div
-              className="editorial-sub-fact"
+              className="comp-zone comp-zone-tl"
               style={{
-                opacity: Math.sin(((p - 0.11) / 0.09) * Math.PI),
-                transform: `translate3d(0, ${(1 - Math.sin(((p - 0.11) / 0.09) * Math.PI)) * 10}px, 0)`,
+                opacity,
+                transform: `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`,
               }}
             >
-              <span className="fact-kicker">ALL-ALUMINUM CHASSIS ARCHITECTURE</span>
-              <p className="fact-copy">57% STIFFER & 99 LBS LIGHTER THAN STEEL</p>
+              <span className="comp-kicker">AUTOMOTIVE MONOGRAPH // 01</span>
+              <h1 className="comp-hero-title">CORVETTE</h1>
+              <p className="comp-subtext">C7 STINGRAY // SEVENTH GENERATION AMERICAN GT</p>
             </div>
-          )}
-        </div>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 03 — FORM (0.22 -> 0.35)
-          "FORM" — Single monumental word.
-          Appears through a clean vertical mask reveal.
-          Car sits behind it. Text remains still while camera moves.
-          Near exit: tracking gently expands, dissolving into darkness.
+          MOMENT 02: SPACEFRAME ARCHITECTURE (0.16 -> 0.32, peak ~0.24)
+          ZONE: TOP-RIGHT BLUE AREA (Above rear haunches)
+          Monumental SPACEFRAME headline with masked entry.
           ========================================================================= */}
-      {p >= 0.22 && p <= 0.35 && (
-        <div className="scene-container scene-form">
-          <MaskedText
-            progress={p}
-            start={0.22}
-            holdStart={0.26}
-            holdEnd={0.31}
-            end={0.35}
-            maskType="vertical-up"
-          >
-            <h1 className="monumental-word single-word-hero">FORM</h1>
-          </MaskedText>
-          <span
-            className="editorial-sub-label"
-            style={{
-              opacity: p >= 0.25 && p <= 0.33 ? Math.sin(((p - 0.25) / 0.08) * Math.PI) : 0,
-            }}
-          >
-            AERODYNAMIC PROFILE // MASS CONTOUR
-          </span>
-        </div>
+      {p >= 0.16 && p <= 0.32 && (
+        (() => {
+          const t = (p - 0.16) / 0.16;
+          const opacity = Math.sin(t * Math.PI);
+          const parallaxY = (p - 0.24) * -45;
+
+          return (
+            <div
+              className="comp-zone comp-zone-tr"
+              style={{
+                opacity,
+                transform: `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`,
+              }}
+            >
+              <span className="comp-kicker comp-kicker-accent">CHASSIS ARCHITECTURE // 02</span>
+              <MaskedText
+                progress={p}
+                start={0.16}
+                holdStart={0.21}
+                holdEnd={0.27}
+                end={0.32}
+                maskType="vertical-up"
+              >
+                <h1 className="comp-hero-title">SPACEFRAME</h1>
+              </MaskedText>
+              <p className="comp-subtext">HYDROFORMED ALUMINUM // 57% STIFFER THAN STEEL</p>
+            </div>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 04 — CLOSE-UP / STANCE (0.35 -> 0.47)
-          Silence from giant words. Contrast against giant typography.
-          Micro-scale typography positioned high to leave wheels & calipers clear.
+          MOMENT 03: PROFILE & BREMBO BRAKING (0.32 -> 0.46, peak ~0.39)
+          ZONE: BOTTOM-LEFT BLUE AREA (Ground floor in front of front wheel)
+          Massive BREMBO typography positioned low in the floor negative space.
           ========================================================================= */}
-      {p >= 0.35 && p <= 0.47 && (
-        <div
-          className="editorial-micro-stance"
-          style={{
-            opacity: Math.sin(((p - 0.35) / 0.12) * Math.PI),
-            transform: `translate3d(0, ${(1 - Math.sin(((p - 0.35) / 0.12) * Math.PI)) * -18}px, 0)`,
-          }}
-        >
-          <span className="micro-tag">MASS DISTRIBUTION & CHASSIS</span>
-          <h2 className="micro-headline">50/50 BALANCE</h2>
-          <div className="micro-specs-row">
-            <span>BREMBO 4-PISTON MONOBLOC</span>
-            <span className="dot-sep">•</span>
-            <span>12.6" SLOTTED ROTORS</span>
-            <span className="dot-sep">•</span>
-            <span>60–0 MPH IN 107 FT</span>
-          </div>
-        </div>
+      {p >= 0.32 && p <= 0.46 && (
+        (() => {
+          const t = (p - 0.32) / 0.14;
+          const opacity = Math.sin(t * Math.PI);
+          const parallaxY = (p - 0.39) * 35;
+
+          return (
+            <div
+              className="comp-zone comp-zone-bl"
+              style={{
+                opacity,
+                transform: `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`,
+              }}
+            >
+              <span className="comp-kicker">DECELERATION MATRIX // 03</span>
+              <h1 className="comp-hero-title">BREMBO</h1>
+              <p className="comp-subtext">4-PISTON MONOBLOC // 60–0 MPH IN 107 FT</p>
+            </div>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 05 — HEADLIGHT (0.47 -> 0.60)
-          Begins heavily blurred (blur 22px).
-          Snaps into knife-edge optical sharpness at p = 0.54 exactly as camera nears
-          the projector lens and the ignition flare peaks!
+          MOMENT 04: BI-XENON OPTICS (0.46 -> 0.60, peak ~0.53)
+          ZONE: TOP-LEFT BLUE AREA (Above headlight / hood)
+          Optical focus with letter stagger.
           ========================================================================= */}
-      {p >= 0.47 && p <= 0.60 && (
-        <div className="scene-container scene-headlight">
-          {(() => {
-            // Peak sharpness at 0.54
-            const distFromPeak = Math.abs(p - 0.54);
-            const blurAmount = Math.min(22, distFromPeak * 280);
-            const opacity = Math.sin(((p - 0.47) / 0.13) * Math.PI);
-            const slideX = (p - 0.54) * 80;
+      {p >= 0.46 && p <= 0.60 && (
+        (() => {
+          const t = (p - 0.46) / 0.14;
+          const opacity = Math.sin(t * Math.PI);
+          const slideX = (p - 0.53) * 60;
+          const distFromPeak = Math.abs(p - 0.53);
+          const blur = Math.min(16, distFromPeak * 240);
 
-            return (
+          return (
+            <div
+              className="comp-zone comp-zone-tl"
+              style={{
+                opacity,
+                filter: blur > 0.4 ? `blur(${blur.toFixed(1)}px)` : 'none',
+                transform: `translate3d(${slideX.toFixed(1)}px, 0, 0)`,
+              }}
+            >
+              <span className="comp-kicker comp-kicker-accent">OPTICAL & AERO // 04</span>
+              <h1 className="comp-hero-title">BI-XENON</h1>
+              <p className="comp-subtext">CARBON HOOD EXTRACTOR BLEEDS FRONT-AXLE LIFT</p>
+            </div>
+          );
+        })()
+      )}
+
+      {/* =========================================================================
+          MOMENT 05: POWERTRAIN OUTPUT & PERFORMANCE (0.60 -> 0.76, peak ~0.68)
+          ZONE: TOP-RIGHT BLUE AREA (Benchmark HP) & BOTTOM-LEFT BLUE AREA (0-60 Sprint)
+          ========================================================================= */}
+      {p >= 0.60 && p <= 0.76 && (
+        (() => {
+          const t = (p - 0.60) / 0.16;
+          const opacity = Math.sin(t * Math.PI);
+          const parallaxTR = (p - 0.68) * -40;
+          const parallaxBL = (p - 0.68) * 35;
+
+          return (
+            <>
+              {/* Top-Right: 460 HP Benchmark */}
               <div
-                className="headlight-optical-wrap"
+                className="comp-zone comp-zone-tr"
                 style={{
                   opacity,
-                  filter: blurAmount > 0.4 ? `blur(${blurAmount.toFixed(1)}px)` : 'none',
-                  transform: `translate3d(${slideX.toFixed(1)}px, 0, 0)`,
-                  willChange: 'transform, opacity, filter',
+                  transform: `translate3d(0, ${parallaxTR.toFixed(1)}px, 0)`,
                 }}
               >
-                <span className="editorial-kicker">OPTICAL & AERODYNAMIC DESIGN</span>
-                <h2 className="monumental-optical-word">BI-XENON</h2>
-                <span className="editorial-sub-technical">
-                  PROJECTOR OPTICS // FORWARD CARBON HOOD EXTRACTOR BLEEDS FRONT-AXLE LIFT
-                </span>
+                <span className="comp-kicker">POWERTRAIN OUTPUT // 05</span>
+                <div className="comp-hero-stat">460</div>
+                <p className="comp-subtext">PEAK HORSEPOWER @ 6,000 RPM // 6.2L LT1 V8</p>
               </div>
-            );
-          })()}
-        </div>
-      )}
 
-      {/* =========================================================================
-          SCENE 06 — TRANSITION / DUAL-WORD MORPH (0.60 -> 0.68)
-          Word A: "POWER" shrinks, softens, fades.
-          Word B: "SPEED" enters, expands from small to large, sharpens.
-          Both coexist and overlap during transition like a cinematic double exposure.
-          ========================================================================= */}
-      {p >= 0.60 && p <= 0.68 && (
-        <div className="scene-container scene-morph">
-          <MorphPair
-            wordA="POWER"
-            wordB="SPEED"
-            progress={p}
-            start={0.60}
-            midpoint={0.64}
-            end={0.68}
-            className="monumental-word morph-display"
-          />
-        </div>
-      )}
-
-      {/* =========================================================================
-          SCENE 07 — PERFORMANCE (0.68 -> 0.79)
-          Huge raw typographic number: "460" — massive, partially cropped by viewport edges!
-          No card, no panel, no box. Pure raw monumental typography.
-          Contracts smoothly into final composition with verified technical labels.
-          ========================================================================= */}
-      {p >= 0.68 && p <= 0.79 && (
-        <div className="scene-container scene-performance">
-          {(() => {
-            const span = 0.79 - 0.68;
-            const t = Math.max(0, Math.min(1, (p - 0.68) / span));
-            const opacity = Math.sin(t * Math.PI);
-            // Contracts from massive 1.25x scale down to 1.0x
-            const scale = 1.25 - t * 0.25;
-
-            return (
+              {/* Bottom-Left: 3.6s Sprint */}
               <div
-                className="monumental-number-block"
+                className="comp-zone comp-zone-bl"
                 style={{
                   opacity,
-                  transform: `scale(${scale.toFixed(3)})`,
-                  willChange: 'transform, opacity',
+                  transform: `translate3d(0, ${parallaxBL.toFixed(1)}px, 0)`,
                 }}
               >
-                <div className="huge-number-display">460</div>
-                <div className="number-label-stack">
-                  <span className="num-unit">PEAK HORSEPOWER @ 6,000 RPM</span>
-                  <div className="num-secondary-row">
-                    <span>6.2L LT1 SMALL-BLOCK V8</span>
-                    <span className="dot-sep">•</span>
-                    <span>465 LB-FT TORQUE</span>
-                    <span className="dot-sep">•</span>
-                    <span>0–60 IN 3.6S</span>
-                  </div>
-                </div>
+                <span className="comp-kicker comp-kicker-accent">SPRINT // 0-60 MPH</span>
+                <div className="comp-hero-stat-compact">3.6s</div>
+                <p className="comp-subtext">465 LB-FT TORQUE // Z51 PERFORMANCE TESTED</p>
               </div>
-            );
-          })()}
-        </div>
+            </>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 08 — INTENSITY / EXHAUST (0.79 -> 0.88)
-          Giant single word: "QUAD PIPES".
-          Subtle horizontal letter stretch. Deep red backlight reflecting behind.
-          Exits completely, leaving frame empty for a silent moment.
+          MOMENT 06: ACTIVE DUAL-MODE EXHAUST (0.76 -> 0.88, peak ~0.82)
+          ZONE: BOTTOM-FLOOR BLUE AREA (Ground floor below rear quad tips)
           ========================================================================= */}
-      {p >= 0.79 && p <= 0.88 && (
-        <div className="scene-container scene-exhaust">
-          {(() => {
-            const span = 0.88 - 0.79;
-            const t = Math.max(0, Math.min(1, (p - 0.79) / span));
-            const opacity = Math.sin(t * Math.PI);
-            const stretchX = 1.08 - t * 0.08;
+      {p >= 0.76 && p <= 0.88 && (
+        (() => {
+          const t = (p - 0.76) / 0.12;
+          const opacity = Math.sin(t * Math.PI);
+          const parallaxY = (p - 0.82) * 30;
 
-            return (
-              <div
-                className="exhaust-editorial-wrap"
-                style={{
-                  opacity,
-                  transform: `scale3d(${stretchX.toFixed(3)}, 1, 1)`,
-                  willChange: 'transform, opacity',
-                }}
-              >
-                <span className="editorial-kicker kicker-red">ACTIVE DUAL-MODE EXHAUST</span>
-                <h1 className="monumental-word word-exhaust">QUAD PIPES</h1>
-                <p className="editorial-sub">
-                  FOUR 4-INCH POLISHED STAINLESS OUTLETS // ACTIVE ACOUSTIC VALVES
-                </p>
-              </div>
-            );
-          })()}
-        </div>
+          return (
+            <div
+              className="comp-zone comp-zone-bf"
+              style={{
+                opacity,
+                transform: `translate3d(0, ${parallaxY.toFixed(1)}px, 0)`,
+              }}
+            >
+              <span className="comp-kicker comp-kicker-accent">DUAL-MODE VALVES (NPP) // 06</span>
+              <h1 className="comp-hero-title">QUAD PIPES</h1>
+              <p className="comp-subtext">FOUR 4-INCH POLISHED STAINLESS OUTLETS // ACTIVE ACOUSTIC BARK</p>
+            </div>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 09 — PAUSE (0.88 -> 0.92)
-          Intentional silence. No large typography.
-          Only tiny micro-text: "07 // PURE FORM". Let car and camera carry the scene.
+          MOMENT 07: SILENCE & PURE FORM (0.88 -> 0.93)
+          Visual pause. Microscopic quiet mark.
           ========================================================================= */}
-      {p >= 0.88 && p <= 0.92 && (
-        <div
-          className="editorial-silence-pause"
-          style={{
-            opacity: Math.sin(((p - 0.88) / 0.04) * Math.PI),
-          }}
-        >
-          <span className="silence-dot">●</span>
-          <span className="silence-txt">07 // PURE FORM — STILL PHOTOGRAPHY</span>
-        </div>
+      {p >= 0.88 && p <= 0.93 && (
+        (() => {
+          const t = (p - 0.88) / 0.05;
+          const opacity = Math.sin(t * Math.PI);
+
+          return (
+            <div
+              className="comp-zone comp-zone-bl"
+              style={{
+                opacity,
+                transform: 'translate3d(0, 0, 0)',
+              }}
+            >
+              <span className="comp-kicker">07 // PURE FORM</span>
+              <p className="comp-subtext">STILL PHOTOGRAPHY // MOTION IN BLACK</p>
+            </div>
+          );
+        })()
       )}
 
       {/* =========================================================================
-          SCENE 10 — TEXTURE TRANSITION (0.92 -> 0.96)
-          Large word begins clean, subtle film grain intensifies inside letters via
-          background-clip text, and dissolves into textured dark mist.
+          MOMENT 08: MONUMENTAL FINALE (0.93 -> 1.00)
+          ZONE: TOP-LEFT BLUE AREA (Monumental Finale Statement)
           ========================================================================= */}
-      {p >= 0.92 && p <= 0.96 && (
-        <div className="scene-container scene-texture-dissolve">
-          {(() => {
-            const t = (p - 0.92) / 0.04;
-            const opacity = Math.sin(t * Math.PI);
-            const blur = t * 10;
+      {p >= 0.93 && (
+        (() => {
+          const t = Math.min(1, (p - 0.93) / 0.04);
+          const opacity = t;
+          const scale = 0.96 + t * 0.04;
 
-            return (
-              <div
-                className="textured-dissolve-word"
-                style={{
-                  opacity,
-                  filter: blur > 0.4 ? `blur(${blur.toFixed(1)}px)` : 'none',
-                  letterSpacing: `${(0.04 + t * 0.12).toFixed(3)}em`,
-                }}
-              >
-                SYNTHESIS
-              </div>
-            );
-          })()}
-        </div>
-      )}
-
-      {/* =========================================================================
-          SCENE 11 — FINAL REVEAL (0.96 -> 1.00)
-          "CORVETTE // STINGRAY C7"
-          Calm, monumental, authoritative. Emerges from deep near-black darkness.
-          Holds perfectly stable. No looping pulse. Pure photographic majesty.
-          ========================================================================= */}
-      {p >= 0.96 && (
-        <div
-          className="scene-container scene-finale"
-          style={{
-            opacity: Math.min(1, (p - 0.96) / 0.03),
-            transform: `scale(${0.98 + Math.min(0.02, (p - 0.96) * 0.5)})`,
-          }}
-        >
-          <span className="editorial-kicker kicker-finale">THE PROTAGONIST</span>
-          <h1 className="monumental-word finale-monument">CORVETTE</h1>
-          <h2 className="finale-sub-title">STINGRAY C7</h2>
-          <div className="finale-specs-line">
-            <span>6.2L V8</span>
-            <span className="dot-sep">•</span>
-            <span>460 HP</span>
-            <span className="dot-sep">•</span>
-            <span>ALUMINUM SPACEFRAME</span>
-            <span className="dot-sep">•</span>
-            <span>BOWLING GREEN, KY</span>
-          </div>
-          <span className="finale-prompt">
-            SCRUB TIMELINE // OR ACTIVATE [ EXPLORE 360° ]
-          </span>
-        </div>
+          return (
+            <div
+              className="comp-zone comp-zone-tl"
+              style={{
+                opacity,
+                transform: `scale(${scale.toFixed(3)})`,
+              }}
+            >
+              <span className="comp-kicker comp-kicker-accent">THE PROTAGONIST // FINALE</span>
+              <h1 className="comp-hero-title grand-hero">CORVETTE</h1>
+              <p className="comp-subtext">STINGRAY C7 // ENGINEERED IN BOWLING GREEN, KY</p>
+            </div>
+          );
+        })()
       )}
     </div>
   );

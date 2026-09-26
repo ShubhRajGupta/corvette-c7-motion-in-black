@@ -33,7 +33,6 @@ export function VfxDebugPanel({ vfxSettings, onUpdateVfxSettings }) {
     const nextVal = !allActive;
     onUpdateVfxSettings({
       atmosphere: nextVal,
-      particles: nextVal,
       optical: nextVal,
       bloom: nextVal,
       chromatic: nextVal,
@@ -80,15 +79,6 @@ export function VfxDebugPanel({ vfxSettings, onUpdateVfxSettings }) {
             onChange={() => toggleSingle('atmosphere')}
           />
           <span className="vfx-toggle-label">Studio Haze & Ground Bed</span>
-        </label>
-
-        <label className="vfx-toggle-item">
-          <input
-            type="checkbox"
-            checked={vfxSettings.particles}
-            onChange={() => toggleSingle('particles')}
-          />
-          <span className="vfx-toggle-label">Micro Airborne Dust</span>
         </label>
 
         <label className="vfx-toggle-item">

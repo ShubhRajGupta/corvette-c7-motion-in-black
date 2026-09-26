@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 let hazePuffTexture = null;
-let dustParticleTexture = null;
 let anamorphicStreakTexture = null;
 
 /**
@@ -31,30 +30,6 @@ export function getHazePuffTexture() {
   return hazePuffTexture;
 }
 
-/**
- * Creates a soft microscopic dust particle dot texture
- */
-export function getDustParticleTexture() {
-  if (dustParticleTexture) return dustParticleTexture;
-
-  const size = 32;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d');
-
-  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-  grad.addColorStop(0.4, 'rgba(255, 255, 255, 0.55)');
-  grad.addColorStop(0.85, 'rgba(255, 255, 255, 0.08)');
-  grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, size, size);
-
-  dustParticleTexture = new THREE.CanvasTexture(canvas);
-  return dustParticleTexture;
-}
 
 /**
  * Creates an ultra-subtle horizontal anamorphic optical streak texture for headlight close-up

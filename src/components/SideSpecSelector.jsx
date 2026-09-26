@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { CAR_SPECS, STICKER_OPTIONS } from '../constants/carSpecs';
 
+/**
+ * SideSpecSelector: Curated Editions & Livery Control
+ *
+ * Requirements:
+ * - Repositioned comfortably inside the viewport (not pressed against the extreme edge).
+ * - Complete removal of the persistent specification/customization card.
+ * - Zero empty container, border, shadow, or reserved layout space left behind.
+ * - Maintains fast, tactile selection of curated Corvette editions and racing livery.
+ */
 export function SideSpecSelector({
   activeSpecId,
   onSelectSpec,
@@ -8,7 +17,6 @@ export function SideSpecSelector({
   onSelectSticker,
 }) {
   const [isStickerMenuOpen, setIsStickerMenuOpen] = useState(false);
-  const [hoveredSpecId, setHoveredSpecId] = useState(null);
 
   const activeSpec = CAR_SPECS.find((s) => s.id === activeSpecId) || CAR_SPECS[0];
   const activeSticker =
@@ -26,22 +34,17 @@ export function SideSpecSelector({
 
       {/* Vertical Palette Buttons */}
       <div className="side-swatch-list">
-        {CAR_SPECS.map((spec, index) => {
+        {CAR_SPECS.map((spec) => {
           const isActive = spec.id === activeSpecId;
-          const isHovered = spec.id === hoveredSpecId;
 
           return (
-            <div
-              key={spec.id}
-              className="side-swatch-wrap"
-              onMouseEnter={() => setHoveredSpecId(spec.id)}
-              onMouseLeave={() => setHoveredSpecId(null)}
-            >
+            <div key={spec.id} className="side-swatch-wrap">
               <button
                 type="button"
                 className={`side-swatch-btn ${isActive ? 'active' : ''}`}
                 onClick={() => onSelectSpec(spec.id)}
                 aria-label={`${spec.name} - ${spec.edition}`}
+                title={`${spec.name} (${spec.edition})`}
                 style={{
                   '--spec-color': spec.swatch,
                   '--accent-color': spec.accentSwatch,
@@ -55,28 +58,6 @@ export function SideSpecSelector({
                 {/* Active Indicator Ring */}
                 {isActive && <span className="swatch-active-ring" />}
               </button>
-
-              {/* High-End Editorial Tooltip floating to the left */}
-              {(isHovered || isActive) && (
-                <div className={`side-spec-tooltip ${isActive ? 'pinned' : ''}`}>
-                  <div className="tooltip-tag">
-                    EDITION 0{index + 1} // {spec.edition}
-                  </div>
-                  <div className="tooltip-title">{spec.name}</div>
-                  <div className="tooltip-tagline">{spec.tagline}</div>
-                  <div className="tooltip-details">
-                    <span>
-                      <strong style={{ color: spec.swatch }}>PAINT:</strong> {spec.name}
-                    </span>
-                    <span>
-                      <strong>CALIPERS:</strong> {spec.calipers.color === '#121214' || spec.calipers.color === '#0d0e11' ? 'JET CARBON' : spec.calipers.color === '#eab308' ? 'RACING YELLOW' : 'TORCH RED'}
-                    </span>
-                    <span>
-                      <strong>LIVERY:</strong> {STICKER_OPTIONS.find((st) => st.id === (isActive ? activeStickerId : spec.defaultSticker))?.label || 'CLEAN'}
-                    </span>
-                  </div>
-                </div>
-              )}
             </div>
           );
         })}
@@ -98,7 +79,7 @@ export function SideSpecSelector({
           <span className="sticker-indicator" />
         </button>
 
-        {/* Sticker Selection Flyout Drawer */}
+        {/* Sticker Selection Flyout Drawer (Contextual Popup) */}
         {isStickerMenuOpen && (
           <div className="side-sticker-drawer">
             <div className="sticker-drawer-header">
