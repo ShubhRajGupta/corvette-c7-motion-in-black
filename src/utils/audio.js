@@ -451,8 +451,8 @@ class CinematicAudioEngine {
     if (this.masterGain && this.ctx) {
       const now = this.ctx.currentTime;
       if (!this.isMuted) {
-        // Master gain smooth engagement at calibrated 0.85
-        this.masterGain.gain.setTargetAtTime(0.85, now, 0.12);
+        // Master gain smooth engagement at 21.25 (25x original level)
+        this.masterGain.gain.setTargetAtTime(21.25, now, 0.12);
         this._playIgnitionSound();
       } else {
         this.masterGain.gain.setTargetAtTime(0, now, 0.15);

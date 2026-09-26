@@ -124,7 +124,7 @@ function App() {
     const renderLoop = () => {
       // Damped interpolation of timeline progress
       const diff = targetProgressRef.current - currentProgressRef.current;
-      currentProgressRef.current += diff * 0.08;
+      currentProgressRef.current += diff * 0.18;
 
       // Update audio timeline state for dynamic pitch, lope, intensity curve & spatial panner
       const velocity = Math.abs(currentProgressRef.current - lastProgress) * 60;
